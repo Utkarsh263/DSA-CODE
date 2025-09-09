@@ -1,26 +1,26 @@
 class Solution {
 public:
     vector<int> nextGreaterElements(vector<int>& nums) {
-        stack<int> st;
-        st.push(0);
         int n = nums.size();
-        vector<int> res(n, -1);
-        for(int i = 1; i < n; i++){
-            //Replace all the lower values
-            while(!st.empty() && nums[i] > nums[st.top()]){
-                res[st.top()] = nums[i];
+        stack<int> st;
+        vector<int> ans (n , -1);
+
+        for(int i= 2*n-1; i>=0; i--){
+            int idx = i % n;
+
+            while(!st.empty() && nums[idx] >= st.top()){
                 st.pop();
             }
-            st.push(i);
-        }
-        for(int i = 0; i < n; i++){
-            while(!st.empty() && nums[i] > nums[st.top()]){
-                res[st.top()] = nums[i];
-                st.pop();
+
+            if(i < n){
+                if(!st.empty()){
+                    ans[idx] = st.top();
+                }
             }
-            //If empty or the indice we checking is already the forth which we checked, exit
-            if(st.empty() || st.top() < i) break;  
+
+            st.push(nums[idx]);
         }
-        return res;
+
+        return ans;
     }
 };
