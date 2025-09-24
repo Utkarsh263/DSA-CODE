@@ -44,7 +44,7 @@ public:
             st.pop();
         }
 
-        for(int i=n-1; i>= 0; i--){
+        for(int i=n-1; i>= 0; i--){ // Next Greater
             while(!st.empty() && nums[st.top()]<= nums[i]){
                 st.pop();
             }
