@@ -1,23 +1,29 @@
 class Solution {
 public:
     bool checkValidString(string s) {
-        int leftMin = 0, leftMax = 0;
-
-        for (char c : s) {
-            if (c == '(') {
-                leftMin++;
-                leftMax++;
-            } else if (c == ')') {
-                leftMin--;
-                leftMax--;
-            } else {
-                leftMin--;
-                leftMax++;
+        int minOpen =0;
+        int maxOpen =0;
+        for(char c : s){
+            if(c=='('){
+                minOpen++;
+                maxOpen++;
+            }else if(c == ')'){
+                minOpen--;
+                maxOpen--;
+            }else{
+                minOpen--;  // treat as ')'
+                maxOpen++;  // treat as '('
             }
-            if (leftMax < 0) return false;
-            if (leftMin < 0) leftMin = 0;
+
+            if(minOpen < 0){
+                minOpen = 0;
+            }
+
+            if(maxOpen < 0){
+                return false;
+            }
         }
-        
-        return leftMin == 0;
+
+        return minOpen == 0;
     }
 };
