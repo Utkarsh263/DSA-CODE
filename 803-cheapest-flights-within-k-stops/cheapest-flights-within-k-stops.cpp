@@ -1,48 +1,48 @@
-class Solution {
-public:
-    class Info{
-    public:
-        int u; 
-        int cost; 
-        int stops;
+// class Solution {
+// public:
+//     class Info{
+//     public:
+//         int u; 
+//         int cost; 
+//         int stops;
 
-        Info(int u, int cost, int stops){
-            this->u =u;
-            this->cost = cost;
-            this->stops= stops;
-        }
-    };
-    int findCheapestPrice(int n, vector<vector<int>>& flights, int src, int dst, int k) {
-        int V = n;
-      queue<Info> q;
-      vector<int> dist(V, INT_MAX);
+//         Info(int u, int cost, int stops){
+//             this->u =u;
+//             this->cost = cost;
+//             this->stops= stops;
+//         }
+//     };
+//     int findCheapestPrice(int n, vector<vector<int>>& flights, int src, int dst, int k) {
+//         int V = n;
+//       queue<Info> q;
+//       vector<int> dist(V, INT_MAX);
 
-      dist[src]=0;
-      q.push(Info(src, 0, -1));
+//       dist[src]=0;
+//       q.push(Info(src, 0, -1));
 
-      while(!q.empty()){
-        Info curr = q.front();
-        q.pop();
+//       while(!q.empty()){
+//         Info curr = q.front();
+//         q.pop();
 
-        for(int i=0; i<flights.size(); i++){
-            if(flights[i][0]==curr.u){
-                int v = flights[i][1];
-                int price = flights[i][2];
+//         for(int i=0; i<flights.size(); i++){
+//             if(flights[i][0]==curr.u){
+//                 int v = flights[i][1];
+//                 int price = flights[i][2];
 
-                if(dist[v] > curr.cost+ price && curr.stops+1<=k){
-                    dist[v] = curr.cost+ price;
-                    q.push(Info(v, dist[v], curr.stops+1));
-                }
-            }
-        }
-      }
-      if(dist[dst]==INT_MAX){
-        return -1;
-      }
+//                 if(dist[v] > curr.cost+ price && curr.stops+1<=k){
+//                     dist[v] = curr.cost+ price;
+//                     q.push(Info(v, dist[v], curr.stops+1));
+//                 }
+//             }
+//         }
+//       }
+//       if(dist[dst]==INT_MAX){
+//         return -1;
+//       }
 
-      return dist[dst];
-    }
-};
+//       return dist[dst];
+//     }
+// };
 
 
 // class Solution {
@@ -82,3 +82,56 @@ public:
 //         return -1;
 //     }
 // };
+
+class Solution {
+public:
+    class Info {
+    public:
+        int u;     // current city
+        int cost;  // cost so far
+        int stops; // number of stops made
+        Info(int u, int cost, int stops) {
+            this->u = u;
+            this->cost = cost;
+            this->stops = stops;
+        }
+    };
+
+    int findCheapestPrice(int n, vector<vector<int>>& flights, int src, int dst, int k) {
+        // Step 1️⃣: Build adjacency list
+        vector<vector<pair<int, int>>> adj(n);
+        for (auto& f : flights) {
+            int from = f[0], to = f[1], price = f[2];
+            adj[from].push_back({to, price});
+        }
+
+        // Step 2️⃣: Initialize BFS queue and distance array
+        queue<Info> q;
+        vector<int> dist(n, INT_MAX);
+        dist[src] = 0;
+        q.push(Info(src, 0, -1)); // start with -1 stops so first move counts as 0
+
+        // Step 3️⃣: BFS traversal
+        while (!q.empty()) {
+            Info curr = q.front();
+            q.pop();
+
+            // if stops already exceed k, skip exploring further
+            if (curr.stops >= k) continue;
+
+            // explore neighbors
+            for (auto& [v, price] : adj[curr.u]) {
+                int newCost = curr.cost + price;
+
+                // if cheaper route found
+                if (newCost < dist[v]) {
+                    dist[v] = newCost;
+                    q.push(Info(v, newCost, curr.stops + 1));
+                }
+            }
+        }
+
+        return dist[dst] == INT_MAX ? -1 : dist[dst];
+    }
+};
+
