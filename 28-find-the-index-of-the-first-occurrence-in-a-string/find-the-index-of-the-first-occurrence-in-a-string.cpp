@@ -5,7 +5,7 @@ public:
         int m = needle.size();
 
         for(int i=0; i<= n-m ;i++){
-            if(haystack.substr(i , m) == needle){
+            if(haystack.substr(i,m) == needle){
                 return i;
             }
         }
