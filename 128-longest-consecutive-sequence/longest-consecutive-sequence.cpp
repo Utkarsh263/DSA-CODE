@@ -8,7 +8,7 @@ public:
         unordered_set<int> s(nums.begin(), nums.end());
         int longest =0;
 
-        for(int num : s){
+        for(int num : s){ // Iterate over sets
             if(s.find(num-1) == s.end()){
                 int current = num ;
                 int streak =1;
