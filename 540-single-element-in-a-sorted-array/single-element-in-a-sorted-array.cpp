@@ -7,7 +7,7 @@ public:
             int mid = (left + right)/2;
 
             // checking for the pairs 
-            if(mid %2 ==1){// first elemt of pair
+            if(mid %2 ==1){// first elemt of pair so mid--
                 mid--;
             }
 
