@@ -29,8 +29,7 @@ public:
             }else{
                 pB = pB->next;
             }
-
-            
+                
         }
 
         return pA;
