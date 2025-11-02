@@ -15,11 +15,12 @@ public:
         ListNode* curr = head;
 
         while(curr != NULL){
-            ListNode* nextNode = curr->next;
-            curr->next = prev;
-            prev = curr;
-            curr = nextNode;
+            ListNode* nextNode = curr->next;// stores the next node
+            curr->next = prev; // change the direction of pointer
+            prev = curr; //prev++
+            curr= nextNode;// curr++
         }
+
         return prev;
     }
 };
