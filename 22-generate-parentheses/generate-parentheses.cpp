@@ -1,26 +1,27 @@
 class Solution {
 public:
-    void backtrack(int n , int open , int end, string curr, vector<string>&result){
-        if(curr.size()==2*n){
-            result.push_back(curr);
-            return;
+    void backtrack(vector<string>&res, string &curr, int open , int close, int n){
+        if((int)curr.size()== 2*n){
+            res.push_back(curr);
         }
 
-        // condition for opening character
-
+        // Try adding  '(' bracket
         if(open < n){
-            backtrack(n , open+1, end , curr+ '(' , result);
+            curr.push_back('(');
+            backtrack(res , curr, open+1, close, n);
+            curr.pop_back();  // backtrack
         }
 
-        // condition for closing character
-
-        if(end < open){
-            backtrack(n , open , end+1, curr+')' , result);
+        if(close < open){
+            curr.push_back(')');
+            backtrack(res, curr, open , close+1, n);
+            curr.pop_back();
         }
     }
     vector<string> generateParenthesis(int n) {
-        vector<string> result;
-        backtrack(n , 0, 0, "", result);
-        return result;
+        vector<string> res;
+        string curr;
+        backtrack(res, curr, 0, 0, n);
+        return res;
     }
 };
