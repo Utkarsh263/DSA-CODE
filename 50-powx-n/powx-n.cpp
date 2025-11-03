@@ -1,23 +1,24 @@
 class Solution {
 public:
     double myPow(double x, int n) {
-        double ans = 1.0;
-        long long nn = n; // use long long to handle INT_MIN safely
+        long long N = n; // ✅ convert to long long to avoid overflow
 
-        if (nn < 0) nn = -1 * nn; // make exponent positive for calculation
-
-        while (nn > 0) {
-            if (nn % 2 == 1) {   // if odd
-                ans = ans * x;
-                nn = nn - 1;
-            } else {             // if even
-                x = x * x;
-                nn = nn / 2;
-            }
+        if (N < 0) {
+            x = 1 / x;
+            N = -N;
         }
 
-        if (n < 0) ans = 1.0 / ans; // handle negative exponent
+        return fastPow(x, N);
+    }
 
-        return ans;
+    double fastPow(double x, long long n) {
+        if (n == 0) return 1;
+
+        double half = fastPow(x, n / 2);
+
+        if (n % 2 == 0)
+            return half * half;
+        else
+            return half * half * x;
     }
 };
