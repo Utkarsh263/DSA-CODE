@@ -1,1 +1,1 @@
-<h2>generate-parentheses Notes</h2><hr>[ Time taken: 15 hrs 19 m 44 s ]
+<h2>generate-parentheses Notes</h2><hr>[ Time taken: 20 m 51 s ]
