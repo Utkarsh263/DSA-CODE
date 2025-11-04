@@ -1,28 +1,25 @@
 class Solution {
 public:
-    void backtrack(int start, int k , int n, vector<int> &ds , vector<vector<int>> &ans){
-        if(ds.size()==k){
-            if(n==0){
-                ans.push_back(ds);
-                
-            }
+    void backtrack(int start, int k , int n , vector<int>&path, vector<vector<int>>&result){
+        if(path.size()==k && n==0){
+            result.push_back(path);
+            return;
+        }
+
+        if(path.size() > k || n <0){
             return;
         }
 
         for(int i=start; i<=9; i++){
-            
-            if(i> n){
-                break;
-            }
-            ds.push_back(i);
-            backtrack(i+1, k, n-i , ds, ans);
-            ds.pop_back();
+            path.push_back(i);
+            backtrack(i+1,k, n-i,path, result);
+            path.pop_back();
         }
     }
     vector<vector<int>> combinationSum3(int k, int n) {
-        vector<vector<int>> ans;
-        vector<int> ds;
-        backtrack(1,k , n , ds, ans);
-        return ans;
+        vector<int>path;
+        vector<vector<int>>result;
+        backtrack(1, k , n , path, result);
+        return result;
     }
 };
