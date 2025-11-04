@@ -1,22 +1,24 @@
 class Solution {
 public:
-    void backtrack(int ind , vector<int> &nums, vector<int> &ds , vector<vector<int>>&ans){
-        ans.push_back(ds);
+    void backtrack(int start, vector<int>&nums, vector<int>&path , vector<vector<int>>&result){
+        result.push_back(path);
 
-        for(int i=ind ; i<nums.size(); i++){
-            if(i != ind && nums[i-1] == nums[i]){
+        for(int i=start; i<nums.size(); i++){
+            if(i >start && nums[i-1]== nums[i]){
                 continue;
             }
-            ds.push_back(nums[i]);
-            backtrack(i+1, nums, ds, ans);
-            ds.pop_back();
+
+            path.push_back(nums[i]);
+            backtrack(i+1, nums, path, result);
+            path.pop_back();
+
         }
     }
     vector<vector<int>> subsetsWithDup(vector<int>& nums) {
-        vector<vector<int>> ans;
-        vector<int> ds;
+        vector<int> path;
+        vector<vector<int>>result;
         sort(nums.begin(), nums.end());
-        backtrack(0, nums, ds, ans);
-        return ans;
+        backtrack(0, nums, path, result);
+        return result;
     }
 };
