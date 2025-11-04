@@ -1,25 +1,23 @@
 class Solution {
 public:
-    void backtrack(vector<int> &nums, int i ,vector<int> &subset , vector<vector<int>>&result){
-
-        if(i == nums.size()){
-            result.push_back(subset);
+    void backtrack(int i , vector<int>&nums, vector<int>&path, vector<vector<int>>&result){
+        if(i==nums.size()){
+            result.push_back(path);
             return;
         }
 
-        // Exclusion
-        backtrack(nums, i+1 , subset , result);
-
-        // Inclusion
-        subset.push_back(nums[i]);
-        backtrack(nums, i+1, subset , result);
-        subset.pop_back(); //backtrack
-
+        // Excluding the item 
+        backtrack(i+1, nums, path, result);
+        // Including the item
+        path.push_back(nums[i]);
+        backtrack(i+1, nums, path, result);
+        path.pop_back();
+        
     }
     vector<vector<int>> subsets(vector<int>& nums) {
+        vector<int>path;
         vector<vector<int>>result;
-        vector<int> subset;
-        backtrack(nums, 0, subset, result);
+        backtrack(0,nums, path, result);
         return result;
     }
 };
