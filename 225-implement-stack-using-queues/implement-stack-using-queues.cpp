@@ -1,17 +1,17 @@
 class MyStack {
 public:
     queue<int> q1;
-    queue<int> q2;
+    queue<int>q2;
     MyStack() {
         
     }
     
     void push(int x) {
+        q2.push(x);
         while(!q1.empty()){
             q2.push(q1.front());
             q1.pop();
         }
-        q1.push(x);
 
         while(!q2.empty()){
             q1.push(q2.front());
@@ -20,9 +20,9 @@ public:
     }
     
     int pop() {
-        int temp = q1.front();
+        int topElement = q1.front();
         q1.pop();
-        return temp;
+        return topElement;
     }
     
     int top() {
