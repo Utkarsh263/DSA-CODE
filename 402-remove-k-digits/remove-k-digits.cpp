@@ -1,29 +1,29 @@
 class Solution {
 public:
     string removeKdigits(string num, int k) {
-        string st;  // will act like a stack
+        string st = "";
 
-        for (char c : num) {
-            // while we can remove and stack top is bigger than current digit
-            while (!st.empty() && k > 0 && st.back() > c) {
+        for(char digit : num){
+            // while last digit > current and we can still remove
+            while(!st.empty() && k > 0 && st.back() > digit){
                 st.pop_back();
                 k--;
             }
-            st.push_back(c);
+            st.push_back(digit);
         }
-
-        // if still k digits need to be removed, remove from end
-        while (k > 0 && !st.empty()) {
+        // if still digits are left to be trimmed
+        while(k > 0 && !st.empty()){
             st.pop_back();
             k--;
         }
 
-        // remove leading zeros
-        int i = 0;
-        while (i < (int)st.size() && st[i] == '0') i++;
+        int i=0;
+        while(i< st.size() && st[i]=='0'){
+            i++;
+        }
 
-        string result = st.substr(i);
-
+        string result= st.substr(i);
         return result.empty() ? "0" : result;
+
     }
 };
