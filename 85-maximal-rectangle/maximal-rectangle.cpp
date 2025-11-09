@@ -1,14 +1,14 @@
 class Solution {
 public:
-    int largestRectangleArea(vector<int>heights){
+    int largestAreaRectangle(vector<int> heights){
         stack<int> st;
         int n = heights.size();
-        int maxArea =0;
+        int maxArea=0;
 
         for(int i=0; i<=n; i++){
-            int currHeight = (i==n)? 0:heights[i];
+            int currHeight = (i==n)? 0: heights[i];
 
-            while(!st.empty() && currHeight< heights[st.top()]){
+            while(!st.empty() && currHeight < heights[st.top()]){
                 int height = heights[st.top()];
                 st.pop();
 
@@ -27,21 +27,22 @@ public:
         if(matrix.empty() || matrix[0].empty()){
             return 0;
         }
+
         int rows = matrix.size();
         int cols = matrix[0].size();
-        vector<int> heights(cols, 0);
-        int maxArea=0;
+        vector<int> heights(cols ,0);
+        int maxArea =0;
 
-        for(int r=0; r<rows; r++){
-            for(int c= 0; c<cols; c++){
-                if(matrix[r][c]=='1'){
+        for(int r=0; r< rows; r++){
+            for(int c=0; c< cols; c++){
+                if(matrix[r][c] == '1'){
                     heights[c] += 1;
                 }else{
-                    heights[c] = 0;
+                    heights[c]=0;
                 }
             }
 
-            maxArea = max(maxArea , largestRectangleArea(heights));
+            maxArea = max(maxArea , largestAreaRectangle(heights));
         }
 
         return maxArea;
