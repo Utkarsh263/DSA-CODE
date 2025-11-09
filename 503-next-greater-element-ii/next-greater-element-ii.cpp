@@ -2,18 +2,18 @@ class Solution {
 public:
     vector<int> nextGreaterElements(vector<int>& nums) {
         int n = nums.size();
-        vector<int> result(n , -1);
+        vector<int> result(n, -1);
         stack<int> st;
 
-        for(int i= 2*n -1; i>=0; i--){
-            int curr = nums[i % n];
+        for(int i= 2*n-1; i>=0; i--){
+            int curr = nums[i%n];  // due to circular array
 
-            while(!st.empty() && st.top() <= curr){
+            while(!st.empty() && st.top()<= curr){
                 st.pop();
             }
 
             if(i<n && !st.empty()){
-                result[i]= st.top();
+                result[i] = st.top();
             }
 
             st.push(curr);
