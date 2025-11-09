@@ -4,7 +4,7 @@ public:
         unordered_map<int, int>nextGreater;
         stack<int> st;
 
-        for(int i= nums2.size()-1;i>=0; i--){
+        for(int i=nums2.size()-1; i>=0; i--){
             int curr = nums2[i];
 
             while(!st.empty() && st.top() <= curr){
@@ -21,10 +21,11 @@ public:
         }
 
         vector<int> result;
-        for(int num : nums1){
+        for(int num: nums1){
             result.push_back(nextGreater[num]);
         }
 
         return result;
+
     }
 };
