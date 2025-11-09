@@ -1,38 +1,39 @@
 class Solution {
 public:
     int sumSubarrayMins(vector<int>& arr) {
-       int n = arr.size();
-       const int MOD = 1e9 + 7;
+        int n = arr.size();
+        vector<int> left(n), right(n);
+        stack<pair<int,int>> st1, st2;
+        const int MOD = 1e9 + 7;
 
-       vector<int>left(n) , right(n);
-       stack<int> st;
-
-       for(int i=0; i<n; i++){
-            while(!st.empty() && arr[st.top()] > arr[i]){
-                st.pop();
+        // Step 1: Previous Less Element (PLE)
+        for (int i = 0; i < n; i++) {
+            int count = 1;
+            while (!st1.empty() && st1.top().first > arr[i]) {
+                count += st1.top().second;
+                st1.pop();
             }
-            left[i] = st.empty() ? i+1 : i-st.top();
-            st.push(i);
-        } 
-
-        while(!st.empty()){
-            st.pop();
+            st1.push({arr[i], count});
+            left[i] = count;
         }
 
-        for(int i=n-1; i>=0; i--){
-            while(!st.empty() && arr[st.top()] >= arr[i]){
-                st.pop();
+        // Step 2: Next Less or Equal Element (NLE)
+        for (int i = n - 1; i >= 0; i--) {
+            int count = 1;
+            while (!st2.empty() && st2.top().first >= arr[i]) {
+                count += st2.top().second;
+                st2.pop();
             }
-            right[i] = st.empty() ? n-i : st.top()-i;
-            st.push(i);
+            st2.push({arr[i], count});
+            right[i] = count;
         }
 
+        // Step 3: Contribution of each element
         long long result = 0;
-        for(int i=0; i<n ; i++){
-            long long contrib = (long long)arr[i]* left[i] * right[i];
-            result = (result+ contrib) % MOD;
+        for (int i = 0; i < n; i++) {
+            result = (result + (long long)arr[i] * left[i] * right[i]) % MOD;
         }
 
-        return (int)result;
+        return result;
     }
 };
