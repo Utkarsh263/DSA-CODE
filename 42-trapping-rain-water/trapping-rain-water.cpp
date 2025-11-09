@@ -2,10 +2,10 @@ class Solution {
 public:
     int trap(vector<int>& height) {
         int n = height.size();
+        int water=0;
         stack<int> st;
-        int water =0;
 
-        for(int i=0; i<n; i++){
+        for(int i=0; i<n ; i++){
             while(!st.empty() && height[i] > height[st.top()]){
                 int bottom = st.top();
                 st.pop();
@@ -16,14 +16,12 @@ public:
 
                 int left = st.top();
                 int width = i-left-1;
-                int boundedHeight = min(height[i], height[left])- height[bottom];
+                int boundedHeight = min(height[i], height[left])-height[bottom];
 
-                water += width * boundedHeight;
+                water+= width*boundedHeight;
             }
-
             st.push(i);
         }
-
         return water;
     }
 };
