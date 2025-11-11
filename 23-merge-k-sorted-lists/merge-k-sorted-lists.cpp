@@ -10,36 +10,35 @@
  */
 class Solution {
 public:
-#include<queue>
+    struct compare{
+        bool operator()(ListNode* a, ListNode* b){
+            return a->val > b->val ; // min heap comparison
+        }
+    };
     ListNode* mergeKLists(vector<ListNode*>& lists) {
-        priority_queue<int,vector<int>,greater<int>>q;
-        if(lists.size()==0) return NULL;
+        priority_queue<ListNode* , vector<ListNode*>, compare>pq;
 
-        int n = lists.size();
-        for(int i=0;i<n;i++){
-            ListNode* temp = lists[i];
-            while(temp!=NULL){
-                q.push(temp->val);
-                temp=temp->next;
+        for(auto list : lists){
+            if(list){
+                pq.push(list);
             }
         }
-        //now make a newLinked list
-        ListNode* head=NULL;
-        ListNode* tail=NULL;
 
-        while(!q.empty()){
-            int a = q.top();
-            q.pop();
-            ListNode* newNode = new ListNode(a);
-            if(head==NULL && tail==NULL){
-                head=newNode;
-                tail=newNode;
-            }else{
-                tail->next=newNode;
-                tail=newNode;
+        ListNode* dummy = new ListNode(0);
+        ListNode* tail = dummy;
+
+        while(!pq.empty()){
+            ListNode* curr = pq.top();
+            pq.pop();
+
+            tail->next = curr;
+            tail = tail->next;
+
+            if(curr->next){
+                pq.push(curr->next);
             }
         }
-        return head;
 
+        return dummy->next;
     }
 };
