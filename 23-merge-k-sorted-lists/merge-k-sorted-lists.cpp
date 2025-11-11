@@ -12,11 +12,13 @@ class Solution {
 public:
     struct compare{
         bool operator()(ListNode* a, ListNode* b){
-            return a->val > b->val ; // min heap comparison
+            return a->val > b->val;
         }
     };
     ListNode* mergeKLists(vector<ListNode*>& lists) {
-        priority_queue<ListNode* , vector<ListNode*>, compare>pq;
+        // Min Heap Implementation
+
+        priority_queue<ListNode* , vector<ListNode*> , compare>pq;
 
         for(auto list : lists){
             if(list){
