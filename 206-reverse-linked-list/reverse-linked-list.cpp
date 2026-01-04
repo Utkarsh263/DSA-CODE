@@ -14,11 +14,13 @@ public:
         ListNode* prev = NULL;
         ListNode* curr = head;
 
+        // We will use three pointers prev , curr and next as store , reverse and update will follow 
+
         while(curr != NULL){
-            ListNode* nextNode = curr->next;// stores the next node
-            curr->next = prev; // change the direction of pointer
-            prev = curr; //prev++
-            curr= nextNode;// curr++
+            ListNode* next = curr->next;
+            curr->next = prev;
+            prev = curr;
+            curr = next;
         }
 
         return prev;
