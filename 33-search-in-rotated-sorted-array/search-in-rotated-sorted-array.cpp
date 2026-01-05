@@ -1,31 +1,33 @@
 class Solution {
 public:
     int search(vector<int>& nums, int target) {
-        int low = 0, high = nums.size() - 1;
+        int left = 0;
+        int right = nums.size() - 1;
 
-        while (low <= high) {
-            int mid = low + (high - low) / 2;
+        while (left <= right) {
+            int mid = left + (right - left) / 2;
 
             if (nums[mid] == target)
                 return mid;
 
             // Left half is sorted
-            if (nums[low] <= nums[mid]) {
-                if (nums[low] <= target && target < nums[mid])
-                    high = mid - 1;  // search left
-                else
-                    low = mid + 1;   // search right
+            if (nums[left] <= nums[mid]) {
+                if (nums[left] <= target && target < nums[mid]) {
+                    right = mid - 1;
+                } else {
+                    left = mid + 1;
+                }
             }
             // Right half is sorted
             else {
-                if (nums[mid] < target && target <= nums[high])
-                    low = mid + 1;   // search right
-                else
-                    high = mid - 1;  // search left
+                if (nums[mid] < target && target <= nums[right]) {
+                    left = mid + 1;
+                } else {
+                    right = mid - 1;
+                }
             }
         }
 
         return -1;
     }
 };
-
