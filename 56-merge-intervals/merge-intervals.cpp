@@ -1,33 +1,26 @@
 class Solution {
 public:
     vector<vector<int>> merge(vector<vector<int>>& intervals) {
-        vector<vector<int>>result;
-
-        if(intervals.empty()){
-            return result;
-        }
+        // Sort the array on the basis of start interval
 
         sort(intervals.begin(), intervals.end());
+        int n = intervals.size();
+        vector<vector<int>> result;
 
-        int start = intervals[0][0];
-        int end = intervals[0][1];
+        result.push_back(intervals[0]);
 
-        for(int i=1; i<intervals.size(); i++){
-            int currstart = intervals[i][0];
-            int currend = intervals[i][1];
+        for(int i=1; i<n; i++){
+            auto &last = result.back();
 
-            //overlapping case
-            if(currstart <= end){
-                end = max(end , currend);
+            if(intervals[i][0] <= last[1]){
+                // case of merging the interval
+                last[1] = max(last[1], intervals[i][1]);
             }else{
-                result.push_back({start, end});
-                start = currstart;
-                end = currend;
+                // case of non merging the intervals
+                result.push_back(intervals[i]);
             }
         }
 
-        // push the last interval
-        result.push_back({start, end});
 
         return result;
     }
