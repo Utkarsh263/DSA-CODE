@@ -1,16 +1,17 @@
 class Solution {
 public:
     int maxSubArray(vector<int>& nums) {
-        // kadane algorithn 
+        // We have to apply Kadane Algorithm to find maximum Subarray Sum 
+
+        int currSum= 0;
         int maxSum = INT_MIN;
-        int currSum =0;
+        
 
-        for(int i=0; i<nums.size(); i++){
-            currSum += nums[i];
-
-            maxSum = max(currSum , maxSum);
+        for(int x : nums){
+            currSum += x;
+            maxSum = max(currSum, maxSum);
             if(currSum < 0){
-                currSum =0;
+                currSum = 0;
             }
         }
 
