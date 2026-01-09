@@ -1,25 +1,32 @@
 class Solution {
 public:
     bool isValid(string s) {
-        stack<char> st;
-        for(int i=0; i<s.size();i++){
-            char ch = s[i];
-            if(ch== '(' || ch == '{' || ch == '['){ // Opening Character is there
-                st.push(ch);
-            }else{  // Closing Character is encountered
+        // Stack operation 
+        stack<char>st;
+
+        for(char c : s){
+            // For opening character case 
+            if(c=='(' || c=='{' || c=='['){
+                st.push(c); // push onto stack
+            }else{
                 if(st.empty()){
-                    return false;
-                }
-                if((ch == ')' && st.top() != '(') || 
-                (ch == '}' && st.top() != '{') 
-                ||(ch == ']' && st.top() != '[')){
-                    return false;
+                    return false; // As only closing bracket , no opening bracket 
                 }
 
+                char top = st.top();
                 st.pop();
+
+                if((top == '('  && c != ')') ||
+                    (top == '{'  && c != '}') ||
+                    (top == '['  && c != ']')){
+
+                        return false;
+
+                }
             }
         }
 
         return st.empty();
+        
     }
 };
