@@ -1,50 +1,54 @@
 class Solution {
 public:
-    int largestAreaRectangle(vector<int> heights){
-        stack<int> st;
-        int n = heights.size();
-        int maxArea=0;
-
-        for(int i=0; i<=n; i++){
-            int currHeight = (i==n)? 0: heights[i];
-
-            while(!st.empty() && currHeight < heights[st.top()]){
-                int height = heights[st.top()];
-                st.pop();
-
-                int rightBoundary =i;
-                int leftBoundary = st.empty() ? 0: st.top()+1;
-
-                int width = rightBoundary - leftBoundary;
-                int area = height*width;
-                maxArea = max(maxArea , area);
-            }
-            st.push(i);
-        }
-        return maxArea;
-    }
     int maximalRectangle(vector<vector<char>>& matrix) {
-        if(matrix.empty() || matrix[0].empty()){
-            return 0;
+        if (matrix.empty() || matrix[0].empty()) return 0;
+
+        int M = matrix.size();
+        int N = matrix[0].size();
+
+        // convert char to int (in-place)
+        vector<vector<int>> mat(M, vector<int>(N));
+        for (int i = 0; i < M; i++) {
+            for (int j = 0; j < N; j++) {
+                mat[i][j] = matrix[i][j] - '0';
+            }
         }
 
-        int rows = matrix.size();
-        int cols = matrix[0].size();
-        vector<int> heights(cols ,0);
-        int maxArea =0;
-
-        for(int r=0; r< rows; r++){
-            for(int c=0; c< cols; c++){
-                if(matrix[r][c] == '1'){
-                    heights[c] += 1;
-                }else{
-                    heights[c]=0;
+        // row-wise prefix widths
+        for (int i = 0; i < M; i++) {
+            for (int j = 1; j < N; j++) {
+                if (mat[i][j] == 1) {
+                    mat[i][j] += mat[i][j - 1];
                 }
             }
-
-            maxArea = max(maxArea , largestAreaRectangle(heights));
         }
 
-        return maxArea;
+        int Ans = 0;
+
+        // fix each column
+        for (int j = 0; j < N; j++) {
+            for (int i = 0; i < M; i++) {
+                int width = mat[i][j];
+                if (width == 0) continue;
+
+                // expand downward
+                int currWidth = width;
+                for (int k = i; k < M && mat[k][j] > 0; k++) {
+                    currWidth = min(currWidth, mat[k][j]);
+                    int height = k - i + 1;
+                    Ans = max(Ans, currWidth * height);
+                }
+
+                // expand upward
+                currWidth = width;
+                for (int k = i; k >= 0 && mat[k][j] > 0; k--) {
+                    currWidth = min(currWidth, mat[k][j]);
+                    int height = i - k + 1;
+                    Ans = max(Ans, currWidth * height);
+                }
+            }
+        }
+
+        return Ans;
     }
 };
