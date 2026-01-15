@@ -1,7 +1,7 @@
 class Solution {
 public:
     int findPairs(vector<int>& nums, int k) {
-        if(k <0){
+        if(k<0){
             return 0;
         }
 
@@ -9,9 +9,7 @@ public:
         for(int x : nums){
             mp[x]++;
         }
-
-        int ans =0;
-
+        int ans=0;
         for(auto &p : mp){
             if(k==0){
                 if(p.second>1){
