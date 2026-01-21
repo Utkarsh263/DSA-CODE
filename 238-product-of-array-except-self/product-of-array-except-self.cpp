@@ -1,34 +1,19 @@
 class Solution {
 public:
     vector<int> productExceptSelf(vector<int>& nums) {
-        // Try for Time Complexity O(N)
-        vector<int>ans(nums.size());
+        int n = nums.size();
+        vector<int>ans(n , 1);
 
-        int product = 1;
-        int zeroes = 0;
-
-        for(int i=0; i<nums.size(); i++){
-            if(nums[i]==0){
-                zeroes++;
-            }else{
-                product *= nums[i];
-            }
+        int left =1;
+        for(int i=0; i<n; i++){
+            ans[i] = left;
+            left *= nums[i];
         }
 
-        for(int i=0; i<nums.size(); i++){
-            if(zeroes > 1){
-
-                nums[i] = 0;
-
-            }else if(zeroes ==1){
-
-                ans[i] = nums[i] == 0? product : 0;
-            }else{
-
-                ans[i] = product/nums[i];
-            }
-
-            
+        int right = 1;
+        for(int i = n-1; i>= 0; i--){
+            ans[i] *= right;
+            right *= nums[i];
         }
 
         return ans;
