@@ -1,26 +1,26 @@
 class Solution {
 public:
-    bool canEat(vector<int>&piles, int h , int k){
+    bool canEat(vector<int>&piles , int h , int k){
         long long hours = 0;
         for(int p : piles){
             hours += (p+k-1)/k;
         }
 
-        return hours<=h;
+        return hours <= h;
     }
     int minEatingSpeed(vector<int>& piles, int h) {
-        int left = 1;
-        int right = *max_element(piles.begin(), piles.end());
-        int ans = right;
+        int low = 1;
+        int high = *max_element(piles.begin(), piles.end());
+        int ans = high;
 
-        while(left <= right){
-            int mid = (left +right)/2;
+        while(low <= high){
+            int mid = (low+high)/2;
 
-            if(canEat(piles, h ,mid)){
-                ans= mid;
-                right = mid-1;
+            if(canEat(piles, h , mid)){
+                ans = mid;
+                high = mid-1;
             }else{
-                left = mid+1;
+                low = mid+1;
             }
         }
 
