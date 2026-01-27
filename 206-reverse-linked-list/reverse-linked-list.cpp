@@ -14,8 +14,6 @@ public:
         ListNode* prev = NULL;
         ListNode* curr = head;
 
-        // We will use three pointers prev , curr and next as store , reverse and update will follow 
-
         while(curr != NULL){
             ListNode* next = curr->next;
             curr->next = prev;
