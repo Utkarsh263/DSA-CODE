@@ -1,85 +1,43 @@
 class Solution {
 public:
+    bool canSplit(vector<int>&nums, int k , int maxSum){
+        int subarrays = 1;
+        long long currSum = 0;
+
+        for(int num : nums){
+            if(currSum + num > maxSum){
+                subarrays++;
+                currSum = num;
+
+                if(subarrays > k){
+                    return false;
+                }
+            }else{
+                currSum += num;
+            }
+        }
+
+        return true;
+    }
     int splitArray(vector<int>& nums, int k) {
-        long long low = 0, high = 0;
-        for (int x : nums) {
-            low = max<long long>(low, x);
+        int low = *max_element(nums.begin(), nums.end());
+        int high = 0;
+        for(int x : nums){
             high += x;
         }
 
-        while (low < high) {
-            long long mid = low + (high - low) / 2;
-            if (canSplit(nums, k, mid)) {
-                high = mid;
-            } else {
-                low = mid + 1;
-            }
-        }
-        return static_cast<int>(low);
-    }
+        int ans = high;
 
-private:
-    bool canSplit(const vector<int>& nums, int k, long long maxAllowed) {
-        int needed = 1;         // start with 1 subarray
-        long long sum = 0;
-        for (int x : nums) {
-            if (sum + x > maxAllowed) {
-                // must start a new subarray
-                needed++;
-                sum = x;
-                if (needed > k) {
-                    return false;
-                }
-            } else {
-                sum += x;
+        while(low <= high){
+            int mid = (low+high)/2;
+
+            if(canSplit(nums, k, mid)){
+                ans = mid;
+                high = mid-1;
+            }else{
+                low = mid+1;
             }
         }
-        return true;
+        return ans;
     }
 };
-
-
-
-
-
-
-
-
-
-
-
-
-// class Solution {
-// public:
-// int helper(vector<int>nums,int mid){
-//   int count=1;
-//   int sum=0;
-//   for(int i=0;i<nums.size();i++){
-//         if(sum+nums[i]<=mid){
-//             sum=sum+nums[i];
-//         }
-//         else{
-//             count++;
-//             sum=nums[i];
-//         }
-//   }
-//   return count;
-// }
-//     int splitArray(vector<int>& nums, int k) {
-//         int low=*max_element(nums.begin(),nums.end()),high,mid;
-//         for(int i=0;i<nums.size();i++){
-//             high+=nums[i];
-//         }
-//         while(low<=high){
-//             mid=(low+high)/2;
-//             int res=helper(nums,mid);
-//             if(res>k){
-//               low=mid+1;
-//             }else{
-//                     high=mid-1;
-//             }
-//         }
-//         return low;
-        
-//     }
-// };
