@@ -9,7 +9,7 @@
 class Solution {
 public:
     ListNode *getIntersectionNode(ListNode *headA, ListNode *headB) {
-        if(headA == NULL || headB == NULL){
+        if(headA== NULL || headB == NULL){
             return NULL;
         }
 
@@ -17,13 +17,12 @@ public:
         ListNode* pB = headB;
 
         while(pA != pB){
-            
-            if(pA == NULL){
+            if(pA==NULL){
                 pA = headB;
             }else{
                 pA = pA->next;
             }
-            
+
             if(pB == NULL){
                 pB = headA;
             }else{
