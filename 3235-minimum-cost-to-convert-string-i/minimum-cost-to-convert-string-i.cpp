@@ -9,7 +9,7 @@ public:
             dist[i][i]=0;
         }
 
-        //Fill direct rransformation cost 
+        //Fill direct transformation cost 
         for(int i=0;  i<original.size(); i++){
             int u = original[i]-'a';
             int v = changed[i]-'a';
