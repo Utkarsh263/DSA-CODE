@@ -1,32 +1,28 @@
 class Solution {
 public:
-    vector<vector<int>>result;
-    vector<int>path;
+    void backtrack(int index, vector<int>&candidates, vector<int>&path , int target , vector<vector<int>>&ans){
 
-    void backtrack(vector<int>&candidates, int target, int start){
-
-        // base case
-        if(target==0){
-            result.push_back(path);
+        if(target == 0){
+            ans.push_back(path);
             return;
         }
 
-        for(int i=start; i<candidates.size(); i++){
-
-            if(candidates[i]> target){
-                return;
-            }
-
-            path.push_back(candidates[i]);
-            backtrack(candidates, target-candidates[i], i);
-            path.pop_back();
+        if(target < 0 || index == candidates.size()){
+            return;
         }
+
+        // Include the number 
+        path.push_back(candidates[index]);
+        backtrack(index, candidates, path , target-candidates[index], ans);
+        path.pop_back();
+
+        // Exclude the number 
+        backtrack(index+1, candidates, path, target, ans);
     }
     vector<vector<int>> combinationSum(vector<int>& candidates, int target) {
-        // Sort the array for pruning 
-        sort(candidates.begin(), candidates.end());
-        backtrack(candidates, target, 0);
-
-        return result;
+        vector<int>path;
+        vector<vector<int>>ans;
+        backtrack(0, candidates, path , target, ans);
+        return ans;
     }
 };
