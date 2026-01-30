@@ -1,34 +1,29 @@
 class Solution {
 public:
-    void backtrack(int index, string &path, string &digits, vector<string>&ans , unordered_map<char, string>&mp){
+    void backtrack(int index, string &digits, vector<string>&mp, string &curr, vector<string>&ans){
+
         if(index == digits.size()){
-            ans.push_back(path);
+            ans.push_back(curr);
             return;
         }
 
-        string letters = mp[digits[index]];
+        string letters = mp[digits[index]-'0'];
+
         for(char ch : letters){
-            path.push_back(ch);  // recursive add to the path
-            backtrack(index+1, path, digits, ans, mp); // recursive call
-            path.pop_back();  // backtrack the path
+            curr.push_back(ch);
+            backtrack(index+1, digits, mp, curr, ans);
+            curr.pop_back();
         }
     }
     vector<string> letterCombinations(string digits) {
-        vector<string> ans;
-        if(digits.empty()){
-            return ans;
-        }
+        vector<string>ans;
+        string curr;
 
-        // mapping of digits to letters
-        unordered_map<char, string>mp= {
-             {'2', "abc"}, {'3', "def"}, {'4', "ghi"},
-            {'5', "jkl"}, {'6', "mno"}, {'7', "pqrs"},
-            {'8', "tuv"}, {'9', "wxyz"}
+        vector<string> mp={
+            "","","abc","def","ghi","jkl","mno","pqrs","tuv","wxyz"
         };
 
-        string path = "";
-        backtrack(0, path, digits, ans, mp);
+        backtrack(0, digits, mp, curr, ans);
         return ans;
-
     }
 };
