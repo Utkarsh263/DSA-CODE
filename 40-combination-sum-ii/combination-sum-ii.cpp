@@ -1,19 +1,19 @@
 class Solution {
 public:
-    void backtrack(int index, vector<int>&candidates, int target, vector<int>&path , vector<vector<int>>&ans){
+    void backtrack(int index, vector<int>&candidates, int target, vector<int>&path, vector<vector<int>>&ans){
 
-        if(target==0){
+        if(target == 0){
             ans.push_back(path);
             return;
         }
 
-        for(int i=index; i< candidates.size(); i++){
+        for(int i=index; i<candidates.size(); i++){
 
-            if(i>index && candidates[i]==candidates[i-1]){
+            if(i > index && candidates[i]==candidates[i-1]){
                 continue;
             }
 
-            if(candidates[i]> target){
+            if(target < candidates[i]){
                 break;
             }
 
@@ -23,7 +23,6 @@ public:
         }
     }
     vector<vector<int>> combinationSum2(vector<int>& candidates, int target) {
-
         sort(candidates.begin(), candidates.end());
         vector<int>path;
         vector<vector<int>>ans;
