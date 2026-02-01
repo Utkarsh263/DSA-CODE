@@ -14,7 +14,6 @@ public:
                 sec_smallest = nums[i];
             }
         }
-
-        return first + smallest + sec_smallest;
+        return smallest + first+ sec_smallest;
     }
 };
