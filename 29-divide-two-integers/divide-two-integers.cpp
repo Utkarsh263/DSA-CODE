@@ -5,26 +5,26 @@ public:
             return INT_MAX;
         }
 
-        bool  negative = (dividend < 0) ^ (divisor< 0);
+        bool negative = (dividend< 0) ^ (divisor<0);
 
         long long a = llabs(dividend);
         long long b = llabs(divisor);
-        long long result = 0;
+
+        long long ans =0;
 
         while(a >= b){
-            long long temp = b ;
+            long long temp =b;
             long long multiple = 1;
 
-            while(a >= (temp << 1)){
+            while((temp << 1) <= a){
                 temp <<= 1;
                 multiple <<=1;
             }
 
-            a-= temp;
-            result += multiple;
+            a -= temp;
+            ans += multiple;
         }
 
-        if(negative) result = -result;
-        return result;
+        return negative ? -ans : ans;
     }
 };
