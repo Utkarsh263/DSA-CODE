@@ -1,32 +1,36 @@
 class Solution {
 public:
-    bool backtrack(vector<vector<char>>&board , string word, int i, int j , int index){
-        if(index == word.size()){
+    int rows, cols;
+    bool dfs(vector<vector<char>>& board, string &word, int r, int c , int idx){
+
+        if(idx == word.size()){
             return true;
         }
 
-        if(i<0 || j<0 || i>= board.size() || j >= board[0].size() || board[i][j] != word[index]){
+        if(r<0 || c<0 || r>= rows ||c >= cols || board[r][c] != word[idx]){
             return false;
         }
 
-        char temp = board[i][j];
-        board[i][j] = '#';
+        char temp = board[r][c];
+        board[r][c] = '#'; // Marks as visited
 
-        bool found = backtrack(board , word, i-1,j , index+1)||
-                    backtrack(board , word, i+1,j , index+1)||
-                    backtrack(board , word, i,j-1 , index+1)||
-                    backtrack(board , word, i,j+1 , index+1);
-
-        board[i][j] = temp;
+        bool found = 
+            dfs(board, word , r+1, c, idx+1) ||
+            dfs(board, word , r-1, c, idx+1) ||
+            dfs(board, word , r, c-1, idx+1) ||
+            dfs(board, word , r, c+1, idx+1) ;
+        
+        board[r][c] = temp;
         return found;
+
     }
     bool exist(vector<vector<char>>& board, string word) {
-        int rows = board.size();
-        int cols = board[0].size();
+        rows = board.size();
+        cols = board[0].size();
 
         for(int i=0; i<rows; i++){
             for(int j=0; j<cols; j++){
-                if(backtrack(board, word, i, j, 0)){
+                if(dfs(board, word, i, j, 0)){
                     return true;
                 }
             }
