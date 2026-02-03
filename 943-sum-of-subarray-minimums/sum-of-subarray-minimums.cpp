@@ -2,39 +2,50 @@ class Solution {
 public:
     int sumSubarrayMins(vector<int>& arr) {
         int n = arr.size();
-        vector<int>left(n) , right(n);
-        stack<pair<int, int>> st1, st2;
-        const int MOD = 1e9+7;
+        const int MOD = 1e9 + 7;
 
-        // Previous greater element
-        for(int i=0; i<n; i++){
-            int count=1;
-            while(!st1.empty() && st1.top().first> arr[i]){
-                count += st1.top().second;
-                st1.pop();
+        vector<int> left(n), right(n);
+        stack<int> st;
+
+        // 1️⃣ Find left distances (previous smaller element)
+        for (int i = 0; i < n; i++) {
+            while (!st.empty() && arr[st.top()] > arr[i]) {
+                st.pop();
             }
 
-            st1.push({arr[i], count});
-            left[i]= count;
+            if (st.empty())
+                left[i] = i + 1;
+            else
+                left[i] = i - st.top();
+
+            st.push(i);
         }
 
-        //Next less or equal element
-        for(int i=n-1; i>=0; i--){
-            int count=1;
-            while(!st2.empty() && st2.top().first>= arr[i]){
-                count += st2.top().second;
-                st2.pop();
+        // Clear stack for reuse
+        while (!st.empty()) st.pop();
+
+        // 2️⃣ Find right distances (next smaller or equal element)
+        for (int i = n - 1; i >= 0; i--) {
+            while (!st.empty() && arr[st.top()] >= arr[i]) {
+                st.pop();
             }
 
-            st2.push({arr[i], count});
-            right[i] = count;
+            if (st.empty())
+                right[i] = n - i;
+            else
+                right[i] = st.top() - i;
+
+            st.push(i);
         }
 
-        long long result =0;
-        for(int i=0; i<n; i++){
-            result = (result + (long long)arr[i]*left[i]*right[i]) % MOD;
+        // 3️⃣ Calculate total contribution
+        long long ans = 0;
+        for (int i = 0; i < n; i++) {
+            long long contribution =
+                (long long)arr[i] * left[i] * right[i];
+            ans = (ans + contribution) % MOD;
         }
 
-        return result;
+        return ans;
     }
 };
