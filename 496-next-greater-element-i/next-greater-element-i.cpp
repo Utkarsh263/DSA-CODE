@@ -10,16 +10,19 @@ public:
                 map[st.top()] = num;
                 st.pop();
             }
+
             st.push(num);
         }
 
-        // Giving -1 to  those elements who has no greater
+        // Assigning -1 to remaining elements 
+
         while(!st.empty()){
             map[st.top()] = -1;
             st.pop();
         }
 
         vector<int>result;
+
         for(int num : nums1){
             result.push_back(map[num]);
         }
