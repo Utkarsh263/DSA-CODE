@@ -7,16 +7,14 @@ public:
             return false;
         }
 
-        int i =1;
-        // Increasing phase 
+        int i=1;
         while(i<n && nums[i] > nums[i-1]){
             i++;
         }
+
         if(i==1){
             return false;
         }
-
-        // Strictly Decreasing phase
 
         while(i<n && nums[i] < nums[i-1]){
             i++;
