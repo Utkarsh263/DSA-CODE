@@ -6,17 +6,19 @@ public:
 
         for(int i=0; i<n; i++){
             if(nums[i]==0){
-                ans[i] =nums[i];
+                ans[i] = 0;
 
             }
 
-            int index = (nums[i] +i)%n;
+            int index = (nums[i]+i)%n;
+
             if(index < 0){
                 index += n;
             }
 
             ans[i] = nums[index];
         }
+
         return ans;
     }
 };
