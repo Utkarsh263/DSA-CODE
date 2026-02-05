@@ -2,12 +2,12 @@
 SELECT d.name as Department,
         e.name as Employee,
         e.salary as Salary
-from Employee e
+From Employee e
 JOIN department d
 on e.departmentId = d.id
 where (e.departmentId , e.salary) IN
 (
-    SELECT departmentId , MAX(salary)
-    from employee
+    Select departmentId , MAX(salary)
+    from Employee
     group by departmentId
-);
+)
