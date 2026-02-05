@@ -1,6 +1,6 @@
 # Write your MySQL query statement below
-DELETE p1 
-from person p1
+DELETE P1 
+FROM person p1
 JOIN person p2
-on p1.email = p2.email
-and p1.id > p2.id;
+on p1.email = p2.email 
+where p1.id > p2.id;
