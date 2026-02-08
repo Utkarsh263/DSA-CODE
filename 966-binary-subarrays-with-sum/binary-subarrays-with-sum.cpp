@@ -1,22 +1,28 @@
 class Solution {
 public:
-    int numSubarraysWithSum(vector<int>& nums, int goal) {
-        unordered_map<int, int>count; // (PrefixSum -> Frequency)
+    int atMost(vector<int>&nums, int k){
 
-        count[0]=1; // Empty Subarray
-
-        int prefixSum=0;
-        int result=0;
-
-        for(int num : nums){
-            prefixSum += num;
-
-            if(count.find(prefixSum - goal) != count.end()){
-                result += count[prefixSum - goal];
-            }
-
-            count[prefixSum]++;
+        if(k<0){
+            return 0;
         }
-        return result;
+
+        int sum =0;
+        int left =0;
+        int count =0;
+
+        for(int right =0; right<nums.size(); right++){
+            sum += nums[right];
+
+            while(sum > k){
+                sum -= nums[left++];
+            }
+            count += (right-left+1);
+
+        }
+
+        return count;
+    }
+    int numSubarraysWithSum(vector<int>& nums, int goal) {
+        return atMost(nums, goal) - atMost(nums, goal-1);
     }
 };
