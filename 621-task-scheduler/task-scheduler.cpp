@@ -1,25 +1,27 @@
 class Solution {
 public:
     int leastInterval(vector<char>& tasks, int n) {
-        vector<int> freq(26,0);
+        vector<int>freq(26,0);
 
-        for(char c : tasks){
-            freq[c-'A']++;
+        for(char t: tasks){
+            freq[t-'A']++;
         }
 
-        int maxFreq = *max_element(freq.begin(), freq.end());
+        sort(freq.begin(), freq.end());
 
-        int countMax =0;
-        for(int f : freq){
-            if(f == maxFreq){
+        int maxFreq = freq[25];
+        int countMax = 1;
+
+        for(int i=24; i>=0; i--){
+            if(freq[i]==maxFreq){
                 countMax++;
+            }else{
+                break;;
             }
         }
 
-        int partCount = maxFreq-1;
-        int partLength = n+1;
-        int emptySlots = partCount * partLength + countMax;
+        int formula = (maxFreq-1)*(n+1) + countMax;
 
-        return max((int)tasks.size(), emptySlots);
+        return max((int)tasks.size(), formula);
     }
 };
