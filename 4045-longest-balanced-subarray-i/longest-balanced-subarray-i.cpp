@@ -9,15 +9,15 @@ public:
             unordered_set<int>odd;
 
             for(int j=i; j<n; j++){
-                if(nums[j]%2==0){
+                if(nums[j] %2==0){
                     even.insert(nums[j]);
                 }else{
                     odd.insert(nums[j]);
                 }
+
                 if(even.size()==odd.size()){
                     ans = max(ans, j-i+1);
                 }
-                
             }
         }
 
