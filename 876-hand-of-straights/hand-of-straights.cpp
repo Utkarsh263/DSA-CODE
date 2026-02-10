@@ -1,33 +1,30 @@
 class Solution {
 public:
     bool isNStraightHand(vector<int>& hand, int groupSize) {
-        int n = hand.size();
         
-        // Step 1: If not divisible, return false
-        if (n % groupSize != 0) return false;
-
-        // Step 2: Count frequency of cards
-        map<int, int> count;
-        for (int card : hand) {
-            count[card]++;
+        if(hand.size() % groupSize != 0){
+            return false;
         }
 
-        // Step 3: Greedy - start from smallest card
-        for (auto& it : count) {
-            int card = it.first;
-            int freq = it.second;
+        map<int, int>freq;
+        for(int x: hand){
+            freq[x]++;
+        }
 
-            if (freq > 0) {
-                // Try to form group starting at 'card'
-                for (int i = 0; i < groupSize; i++) {
-                    if (count[card + i] < freq) {
-                        return false; // not enough cards
+        for(auto &it : freq){
+            int start = it.first;
+            int count = it.second;
+
+            if(count > 0){
+                for(int i=start; i<start+groupSize; i++){
+                    if(freq[i]<count){
+                        return false;
                     }
-                    count[card + i] -= freq; // use cards
+
+                    freq[i] -= count;
                 }
             }
         }
-
         return true;
     }
 };
