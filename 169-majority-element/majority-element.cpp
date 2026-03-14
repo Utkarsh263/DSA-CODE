@@ -9,7 +9,7 @@ public:
                 candidate = num;
             }
 
-            if(candidate==num){
+            if(candidate == num){
                 count++;
             }else{
                 count--;
