@@ -1,44 +1,42 @@
 class Solution {
 public:
     vector<vector<int>> threeSum(vector<int>& nums) {
-        vector<vector<int>> ans;
+        vector<vector<int>>ans;
+        sort(nums.begin(), nums.end());
         int n = nums.size();
 
-        sort(nums.begin(), nums.end());
-
-        for (int i = 0; i < n; i++) {
-
-            // Skip duplicate fixed elements
-            if (i > 0 && nums[i] == nums[i - 1]) 
+        for(int i=0; i<n-2; i++){
+            if(i>0 && nums[i] == nums[i-1]){
                 continue;
+            }
 
-            int left = i + 1;
-            int right = n - 1;
+            int l = i+1;
+            int r = n-1;
 
-            while (left < right) {
-                int sum = nums[i] + nums[left] + nums[right];
+            while(l<r){
+                int sum = nums[i] + nums[l] + nums[r];
 
-                if (sum == 0) {
-                    ans.push_back({nums[i], nums[left], nums[right]});
-                    left++;
-                    right--;
+                if(sum==0){
+                    ans.push_back({nums[i], nums[l], nums[r]});
+                    l++;
+                    r--;
 
-                    // Skip duplicate left elements
-                    while (left < right && nums[left] == nums[left - 1])
-                        left++;
+                    while(l<r && nums[l] == nums[l-1]){
+                        l++;
+                    }
 
-                    // Skip duplicate right elements
-                    while (left < right && nums[right] == nums[right + 1])
-                        right--;
-                }
-                else if (sum < 0) {
-                    left++;
-                }
-                else {
-                    right--;
+                    while(l<r && nums[r] == nums[r+1]){
+                        continue;
+                    }
+                }else if(sum < 0){
+                    l++;
+                }else{
+                    r--;
                 }
             }
+
         }
+
         return ans;
     }
 };
