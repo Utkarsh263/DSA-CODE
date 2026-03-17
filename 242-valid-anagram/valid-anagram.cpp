@@ -2,17 +2,23 @@ class Solution {
 public:
     bool isAnagram(string s, string t) {
         
-        vector<int> count (26,0);
+        vector<int>freq(26,0);
+
+        // Storing frequency of each character 
+
         for(char c : s){
-            count[c-'a']++;
+
+            freq[c-'a']++;
         }
 
         for(char c : t){
-            count[c-'a']--;
+
+            freq[c-'a']--;
         }
 
-        for(int n : count){
-            if(n !=0){
+        for(int i=0; i<25; i++){
+
+            if(freq[i] != 0){
                 return false;
             }
         }
