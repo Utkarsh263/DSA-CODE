@@ -1,7 +1,10 @@
 class Solution {
 public:
     bool rotateString(string s, string goal) {
-        if(s.size() != goal.size()){
+        
+        // If strings are of unequal length , no rotation is possible 
+
+        if(s.length() != goal.length()){
             return false;
         }
 
