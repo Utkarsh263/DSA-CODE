@@ -6,14 +6,16 @@ public:
 
         for(char c : s){
             if(c=='('){
-                if(depth>0){
+                if(depth > 0){
                     result += c;
                 }
-                depth++;
+
+                depth++;  // Exclude the outermost parenthesis
             }else{
+
                 depth--;
-                if(depth>0){
-                    result += c;
+                if(depth > 0){
+                    result +=  c;
                 }
             }
         }
