@@ -10,10 +10,9 @@ public:
 
         int n = s.size();
 
-        // Create buckets 
         vector<vector<char>>bucket(n+1);
 
-        for(auto &p : freq){
+        for(auto &p: freq){
             char ch = p.first;
             int f = p.second;
             bucket[f].push_back(ch);
@@ -21,7 +20,7 @@ public:
 
         string result;
 
-        for(int i=n; i>=0; i--){
+        for(int i=n; i>=1; i--){
             for(char c : bucket[i]){
                 result += string(i, c);
             }
