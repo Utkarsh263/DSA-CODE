@@ -14,7 +14,7 @@ public:
             maxEnd = tempMax;
             minEnd = tempMin;
 
-            ans = max(ans , maxEnd);
+            ans = max(ans , tempMax);
         }
 
         return ans;
