@@ -8,7 +8,7 @@ public:
         for(char c : s){
             if(c=='('){
                 depth++;
-                maxDepth = max(depth, maxDepth);
+                maxDepth = max(maxDepth , depth);
             }else if(c==')'){
                 depth--;
             }else{
