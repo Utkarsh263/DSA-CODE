@@ -1,21 +1,25 @@
 class Solution {
 public:
     string reverseWords(string s) {
-        string word;                    // To store each extracted word
-        stringstream ss(s);             // Create stringstream from input string
-        vector<string> words;           // To store all words
+        
+        string word;
+        stringstream ss(s);
+        vector<string>words;
 
-        while (ss >> word) {            // Extract words separated by spaces
-            words.push_back(word);      // Store each word
+        while(ss >> word){
+            words.push_back(word);
         }
 
-        string result;                  // Final answer string
+        reverse(words.begin() , words.end());
 
-        for (int i = words.size() - 1; i >= 0; i--) {   // Traverse words in reverse
-            result += words[i];          // Add current word
-            if (i > 0) result += " ";    // Add space between words (not after last)
+        string result = "";
+
+        for(string w : words){
+            result += w+" ";
         }
 
-        return result;                  // Return reversed string
+        result.pop_back();
+
+        return result;
     }
 };
