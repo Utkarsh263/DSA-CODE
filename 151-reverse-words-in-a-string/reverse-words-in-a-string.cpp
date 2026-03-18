@@ -6,14 +6,13 @@ public:
         stringstream ss(s);
         vector<string>words;
 
-        while(ss >> word){
+        while(ss>>word){
             words.push_back(word);
         }
 
-        reverse(words.begin() , words.end());
+        reverse(words.begin(), words.end());
 
         string result = "";
-
         for(string w : words){
             result += w+" ";
         }
