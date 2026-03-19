@@ -11,7 +11,8 @@
 class Solution {
 public:
     bool isPalindrome(ListNode* head) {
-        if(head== NULL || head->next == NULL){
+        
+        if(head == NULL || head->next == NULL){
             return true;
         }
 
@@ -25,7 +26,6 @@ public:
 
         ListNode* prev = NULL;
         ListNode* curr = slow;
-        
 
         while(curr != NULL){
             ListNode* next = curr->next;
@@ -41,6 +41,7 @@ public:
             if(left->val != right->val){
                 return false;
             }
+
             left = left->next;
             right = right->next;
         }
