@@ -19,6 +19,7 @@ public:
         ListNode* fast = dummy;
 
         // Iterate fast to n steps forward 
+
         for(int i=0; i<=n; i++){
             fast = fast->next;
         }
