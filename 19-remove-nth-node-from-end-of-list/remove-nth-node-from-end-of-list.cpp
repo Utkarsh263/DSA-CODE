@@ -15,16 +15,17 @@ public:
         ListNode* dummy = new ListNode(0);
         dummy->next = head;
 
-        ListNode* fast = dummy;
         ListNode* slow = dummy;
+        ListNode* fast = dummy;
 
-        for(int i=0; i<=n ; i++){
+        // Iterate fast to n steps forward 
+        for(int i=0; i<=n; i++){
             fast = fast->next;
         }
 
         while(fast != NULL){
-            fast = fast->next;
             slow = slow->next;
+            fast = fast->next;
         }
 
         slow->next = slow->next->next;
