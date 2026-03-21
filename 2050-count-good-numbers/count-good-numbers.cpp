@@ -1,28 +1,27 @@
 class Solution {
 public:
-    static const long long MOD = 1000000007;
+    long long mod = 1e9+7;
 
-    long long power(long long base, long long exp){
-        if(exp ==0){
-            return 1;
+    long long power(long long a, long long b){
+
+        long long res = 1;
+        while(b>0){
+            if(b%2 == 1){
+                res = (res*a) % mod;
+            }
+
+            a = (a*a)%mod;
+            b /= 2;
+
         }
 
-        long long half = power(base, exp/2);
-
-        if(exp %2 ==0){
-            return (half*half)%MOD;
-        }else{
-            return (base*half*half)%MOD;
-        }
+        return res;
     }
-
     int countGoodNumbers(long long n) {
-        long long even = (n+1)/2;  // 0,2,4,6,8 and even indices will always be n+1/2
-        long long odd = n/2; // prime number are 2,3,5,7 and odd indices will always be n/2
+        
+        long long evenCount = (n+1)/2;
+        long long oddCount = n/2;
 
-        long long evenWays = power(5, even);
-        long long oddWays = power(4, odd);
-
-        return (evenWays * oddWays)%MOD;
+        return (power(5, evenCount) * power(4, oddCount)) % mod;
     }
 };
