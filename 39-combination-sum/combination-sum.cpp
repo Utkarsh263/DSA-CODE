@@ -1,10 +1,12 @@
 class Solution {
 public:
+    vector<int>path;
     vector<vector<int>>ans;
 
-    void solve(int idx , vector<int>&candidates , int target , vector<int>&temp){
+    void solve(int idx , int target , vector<int>&candidates){
+
         if(target == 0){
-            ans.push_back(temp);
+            ans.push_back(path);
             return;
         }
 
@@ -12,16 +14,15 @@ public:
             return;
         }
 
-        // take the current element
-        temp.push_back(candidates[idx]);
-        solve(idx , candidates , target-candidates[idx] , temp);
-        temp.pop_back();
+        path.push_back(candidates[idx]);
+        solve(idx , target-candidates[idx] , candidates);
+        path.pop_back();
 
-        solve(idx+1 , candidates , target , temp);
+        solve(idx+1 , target , candidates);
     }
     vector<vector<int>> combinationSum(vector<int>& candidates, int target) {
-        vector<int>temp;
-        solve(0, candidates , target , temp);
+        
+        solve(0, target, candidates);
         return ans;
     }
 };
