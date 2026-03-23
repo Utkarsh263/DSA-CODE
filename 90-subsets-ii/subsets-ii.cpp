@@ -7,9 +7,9 @@ public:
 
         ans.push_back(temp);
 
-        for(int i=start; i<nums.size(); i++){
+        for(int i=start ; i<nums.size(); i++){
 
-            if(i > start && nums[i] == nums[i-1]){
+            if(i>start && nums[i] == nums[i-1]){
                 continue;
             }
 
@@ -19,7 +19,7 @@ public:
         }
     }
     vector<vector<int>> subsetsWithDup(vector<int>& nums) {
-        
+
         sort(nums.begin(), nums.end());
         solve(0, nums);
         return ans;
