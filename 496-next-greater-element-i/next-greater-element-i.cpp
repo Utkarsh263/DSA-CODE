@@ -5,18 +5,21 @@ public:
         unordered_map<int, int>nge;
         stack<int>st;
 
-        for(int x : nums2){
-            while(!st.empty() && st.top() < x){
-                nge[st.top()] = x;
+        for(int num : nums2){
+
+            while(!st.empty() && num > st.top()){
+
+                nge[st.top()] = num;
                 st.pop();
             }
 
-            st.push(x);
+            st.push(num);
         }
 
         vector<int>ans;
 
         for(int x : nums1){
+
             if(nge.find(x) != nge.end()){
                 ans.push_back(nge[x]);
             }else{
