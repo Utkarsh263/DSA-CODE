@@ -1,24 +1,25 @@
 class Solution {
 public:
     vector<int> nextGreaterElements(vector<int>& nums) {
+        
         int n = nums.size();
-        vector<int> result(n, -1);
-        stack<int> st;
+        vector<int>ans(n, -1);
+        stack<int>st;
 
-        for(int i= 2*n-1; i>=0; i--){
-            int curr = nums[i%n];  // due to circular array
+        for(int i=0; i<2*n; i++){
 
-            while(!st.empty() && st.top()<= curr){
+            int num = nums[i % n];
+
+            while(!st.empty() && nums[st.top()] < num){
+                ans[st.top()] = num;
                 st.pop();
             }
 
-            if(i<n && !st.empty()){
-                result[i] = st.top();
+            if(i<n){
+                st.push(i);
             }
-
-            st.push(curr);
         }
 
-        return result;
+        return ans;
     }
 };
