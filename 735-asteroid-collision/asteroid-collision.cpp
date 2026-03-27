@@ -7,17 +7,18 @@ public:
         for(int a : asteroids){
             bool destroyed = false;
 
-            while(!st.empty() && st.top() >0 && a<0){
+            while(!st.empty() && st.top() > 0 && a < 0){
                 if(abs(st.top()) < abs(a)){
                     st.pop();
-                }else if (abs(st.top()) == abs(a)){
+                }else if(abs(st.top()) == abs(a)){
                     st.pop();
                     destroyed = true;
                     break;
-                }else {
+                }else{
                     destroyed = true;
                     break;
                 }
+
             }
 
             if(!destroyed){
