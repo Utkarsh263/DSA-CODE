@@ -1,41 +1,39 @@
 class Solution {
 public:
     string removeKdigits(string num, int k) {
-        stack<char> st;
+        
+        stack<char>st;
 
-        for(char c : num){
+        for (char c : num){
 
-            while(!st.empty() && k>0 && st.top()> c){
-                k--;
+            while(!st.empty() && k>0 && st.top() > c){
                 st.pop();
+                k--;
             }
 
             st.push(c);
         }
 
-        while(!st.empty() && k>0){
+        while(k>0 && !st.empty()){
+            st.pop(); 
             k--;
-            st.pop();
         }
 
-        // string result 
-        string result = "";
+        string res = "";
         while(!st.empty()){
-            result += st.top();
+            res += st.top();
             st.pop();
         }
 
-        // reverse the result as stack is LIFO data structure
-        reverse(result.begin(), result.end());
-        int count=0;
+        reverse(res.begin(), res.end());
 
-        int i = 0;
-while (i < result.size() && result[i] == '0') {
-    i++;
-}
-result = result.substr(i);
-       
+        int i=0; 
+        while(i < res.size() && res[i] =='0'){
+            i++;
+        }
 
-        return result.empty() ?"0" : result;
+        res = res.substr(i);
+
+        return res.empty() ? "0" : res;
     }
 };
