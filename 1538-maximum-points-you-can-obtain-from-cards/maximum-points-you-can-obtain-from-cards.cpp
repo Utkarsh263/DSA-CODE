@@ -1,30 +1,27 @@
 class Solution {
 public:
     int maxScore(vector<int>& cardPoints, int k) {
+        
         int n = cardPoints.size();
+        int total =0;
 
-        int total=0;
         for(int x : cardPoints){
             total += x;
         }
 
-        if(k==n){
-            return total;
+        int windowSize = n-k;
+        int sum = 0;
+        for(int i=0; i<windowSize; i++){
+            sum += cardPoints[i];
         }
 
-        int window = n-k;
-        int curr =0;
-        for(int i=0; i<window; i++){
-            curr += cardPoints[i];
+        int minSum = sum;
+
+        for(int i=windowSize; i<n; i++){
+            sum += cardPoints[i] - cardPoints[i-windowSize];
+            minSum = min(minSum , sum);
         }
 
-        int minSum = curr;
-        for(int i=window; i<n; i++){
-            curr += cardPoints[i];
-            curr -= cardPoints[i-window];
-            minSum = min(minSum, curr);
-        }
-
-        return total-minSum;
+        return total - minSum;
     }
 };
