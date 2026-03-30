@@ -1,23 +1,28 @@
 class Solution {
 public:
     int characterReplacement(string s, int k) {
-        vector<int>count(26, 0);
-        int left=0;
-        int right=0;
-        int maxfreq=0;
-        int maxlen=0;
+        int left =0;
+        int maxFreq = 0;
+        int maxLen = 0;
+        vector<int>freq(26,0);
 
-        for(int right=0; right < s.size(); right++){
-            count[s[right]-'A']++;
-            maxfreq = max(maxfreq , count[s[right]-'A']);
+        for(int right =0; right<s.size(); right++){
 
-            while((right-left+1) - maxfreq > k){
-                count[s[left]-'A']--;
+            // increment the count 
+            freq[s[right]-'A']++;
+
+            // Update the max Freq 
+            maxFreq = max(maxFreq , freq[s[right]-'A']);
+
+            // window condition 
+            while((right-left+1) -maxFreq > k){
+                freq[s[left]-'A']--;
                 left++;
             }
 
-            maxlen = max(maxlen , right-left+1);
+            maxLen = max(maxLen , right-left+1);
         }
-        return maxlen;
+
+        return maxLen;
     }
 };
