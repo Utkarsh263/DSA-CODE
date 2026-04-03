@@ -2,29 +2,43 @@ class Solution {
 public:
     bool isNStraightHand(vector<int>& hand, int groupSize) {
         
+        // Check divisibility
         if(hand.size() % groupSize != 0){
             return false;
         }
 
-        map<int, int>freq;
-        for(int x: hand){
-            freq[x]++;
+        // Frequency map 
+        unordered_map<int, int>freq;
+        for(int h : hand){
+            freq[h]++;
         }
 
-        for(auto &it : freq){
-            int start = it.first;
-            int count = it.second;
+        // Min Heap 
+        priority_queue<int, vector<int>, greater<int>>pq;
+        for(int h : hand){
+            pq.push(h);
+        }
 
-            if(count > 0){
-                for(int i=start; i<start+groupSize; i++){
-                    if(freq[i]<count){
-                        return false;
-                    }
+        while(!pq.empty()){
+            int start = pq.top();
+            pq.pop();
 
-                    freq[i] -= count;
+            // Skip if its already used 
+            if(freq[start]==0){
+                continue;
+            }
+
+            for(int i=0; i<groupSize; i++){
+                int curr = start + i;
+
+                if(freq[curr]==0){
+                    return false;
                 }
+
+                freq[curr]--;
             }
         }
+
         return true;
     }
 };
