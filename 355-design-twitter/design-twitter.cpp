@@ -1,53 +1,64 @@
 class Twitter {
-private:
-    int timeStamp;
-    unordered_map<int, unordered_set<int>> follows;
-    unordered_map<int, vector<pair<int,int>>> tweets;
-
 public:
-    Twitter() {
-        timeStamp = 0;
-    }
+    int time = 0;
 
-    // Compose a new tweet
+    unordered_map<int, vector<pair<int,int>>> tweets;
+    unordered_map<int, unordered_set<int>> follows;
+
+    Twitter() {}
+
     void postTweet(int userId, int tweetId) {
-        tweets[userId].push_back({timeStamp++, tweetId});
+        tweets[userId].push_back({time++, tweetId});
     }
 
-    // Retrieve the 10 most recent tweet ids
     vector<int> getNewsFeed(int userId) {
-        priority_queue<pair<int,int>> pq; // (time, tweetId)
+        
+        vector<int> result;
 
-        // include user's own tweets
-        for (auto &t : tweets[userId]) {
-            pq.push(t);
-        }
+        // Max heap: (time, tweetId, userId, index)
+        priority_queue<vector<int>> pq;
 
-        // include followees' tweets
-        for (auto &f : follows[userId]) {
-            for (auto &t : tweets[f]) {
-                pq.push(t);
+        // Ensure user follows themselves
+        follows[userId].insert(userId);
+
+        // Push latest tweet of each followee
+        for(int user : follows[userId]) {
+            if(tweets[user].size() > 0) {
+                int idx = tweets[user].size() - 1;
+                auto &t = tweets[user][idx];
+                pq.push({t.first, t.second, user, idx});
             }
         }
 
-        // get top 10
-        vector<int> feed;
-        int k = 10;
-        while (!pq.empty() && k--) {
-            feed.push_back(pq.top().second);
+        // Get top 10 tweets
+        while(!pq.empty() && result.size() < 10) {
+            auto top = pq.top();
             pq.pop();
+
+            int time = top[0];
+            int tweetId = top[1];
+            int user = top[2];
+            int idx = top[3];
+
+            result.push_back(tweetId);
+
+            // Push next older tweet
+            if(idx > 0) {
+                auto &t = tweets[user][idx - 1];
+                pq.push({t.first, t.second, user, idx - 1});
+            }
         }
-        return feed;
+
+        return result;
     }
 
-    // Follower follows a followee
     void follow(int followerId, int followeeId) {
-        if (followerId == followeeId) return; // cannot follow self
         follows[followerId].insert(followeeId);
     }
 
-    // Follower unfollows a followee
     void unfollow(int followerId, int followeeId) {
-        follows[followerId].erase(followeeId);
+        if(followerId != followeeId) {
+            follows[followerId].erase(followeeId);
+        }
     }
 };
