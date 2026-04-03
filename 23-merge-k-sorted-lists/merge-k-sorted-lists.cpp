@@ -11,33 +11,35 @@
 class Solution {
 public:
     struct compare{
-        bool operator()(ListNode* a, ListNode* b){
+        bool operator()(ListNode* a , ListNode* b){
             return a->val > b->val;
         }
     };
     ListNode* mergeKLists(vector<ListNode*>& lists) {
-        // Min Heap Implementation
-
+        
+        // Min heap
         priority_queue<ListNode* , vector<ListNode*> , compare>pq;
 
-        for(auto list : lists){
-            if(list){
-                pq.push(list);
+        for(auto node : lists){
+            if(node != NULL){
+                pq.push(node);
             }
         }
 
+        // Dummy Node
         ListNode* dummy = new ListNode(0);
         ListNode* tail = dummy;
 
         while(!pq.empty()){
-            ListNode* curr = pq.top();
+
+            ListNode* smallest = pq.top();
             pq.pop();
 
-            tail->next = curr;
+            tail->next = smallest;
             tail = tail->next;
 
-            if(curr->next){
-                pq.push(curr->next);
+            if(smallest->next != NULL){
+                pq.push(smallest->next);
             }
         }
 
