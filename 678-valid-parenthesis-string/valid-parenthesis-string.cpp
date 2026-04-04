@@ -1,31 +1,30 @@
 class Solution {
 public:
     bool checkValidString(string s) {
-        int low =0;
-        int high =0;
+        int low = 0, high = 0;
 
-        for(char c : s){
-            if(c=='('){
+        for (char c : s) {
+            if (c == '(') {
                 low++;
                 high++;
-            }else if(c==')'){
+            }
+            else if (c == ')') {
                 low--;
                 high--;
-            }else{
-                low--;
-                high++;
+            }
+            else { // '*'
+                low--;      // treat '*' as ')'
+                high++;     // treat '*' as '('
             }
 
+            // if even maximum is negative → invalid
+            if (high < 0) return false;
 
-            if(high < 0){
-                return false;
-            }
-
-            if(low < 0){
-                low =0;
-            }
+            // low cannot be negative
+            if (low < 0) low = 0;
         }
 
-        return low==0;
+        // valid if we can end with 0 open brackets
+        return low == 0;
     }
 };
