@@ -2,15 +2,15 @@ class Solution {
 public:
     bool checkValidString(string s) {
         
-        int low =0;
+        int low = 0;
         int high = 0;
 
         for(char c : s){
 
-            if(c=='('){
+            if(c == '('){
                 low++;
                 high++;
-            }else if(c==')'){
+            }else if(c == ')'){
                 low--;
                 high--;
             }else{
