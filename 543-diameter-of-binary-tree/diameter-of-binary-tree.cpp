@@ -21,7 +21,7 @@ public:
         int left = height(root->left);
         int right = height(root->right);
 
-        diameter = max(diameter , left+right);
+        diameter = max(diameter , right+left);
 
         return 1+max(left , right);
     }
