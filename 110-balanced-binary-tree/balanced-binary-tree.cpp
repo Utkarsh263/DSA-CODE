@@ -34,6 +34,7 @@ public:
         return 1+max(left , right);
     }
     bool isBalanced(TreeNode* root) {
+        
         return check(root) != -1;
     }
 };
