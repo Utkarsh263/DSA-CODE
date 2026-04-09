@@ -12,6 +12,7 @@
 class Solution {
 public:
     vector<int> rightSideView(TreeNode* root) {
+        
         vector<int>result;
 
         if(root == NULL){
@@ -45,5 +46,6 @@ public:
         }
 
         return result;
+
     }
 };
