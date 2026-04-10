@@ -13,7 +13,7 @@ class Solution {
 public:
     TreeNode* removeLeafNodes(TreeNode* root, int target) {
         
-        if(root == NULL){
+        if(root==NULL){
             return NULL;
         }
 
