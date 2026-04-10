@@ -14,15 +14,13 @@ public:
     TreeNode* prev = NULL;
     void flatten(TreeNode* root) {
         
-        if(root==NULL){
+        if(root == NULL){
             return;
         }
 
-        // Go right first 
         flatten(root->right);
         flatten(root->left);
 
-        // rewire 
         root->right = prev;
         root->left = NULL;
 
