@@ -11,26 +11,21 @@
  */
 class Solution {
 public:
-    int i=0;
-    TreeNode* build(vector<int> &preorder, int minVal , int maxVal){
-        if(i== preorder.size()){
+    int i = 0;
+
+    TreeNode* build(vector<int>& preorder, int bound) {
+        if (i == preorder.size() || preorder[i] > bound)
             return NULL;
-        }
 
-        int val = preorder[i];
-        if(val <minVal || val > maxVal){
-            return NULL;
-        }
+        TreeNode* root = new TreeNode(preorder[i++]);
 
-        TreeNode* root = new TreeNode(val);
-        i++;
-
-        root->left = build(preorder, minVal , val);
-        root->right = build(preorder , val , maxVal);
+        root->left = build(preorder, root->val);
+        root->right = build(preorder, bound);
 
         return root;
     }
+
     TreeNode* bstFromPreorder(vector<int>& preorder) {
-        return build(preorder ,INT_MIN , INT_MAX);
+        return build(preorder, INT_MAX);
     }
 };
