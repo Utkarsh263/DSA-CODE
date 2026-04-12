@@ -1,35 +1,42 @@
 class Solution {
 public:
-    bool canFinish(int numCourses, vector<vector<int>>& prerequisites) {
-        vector<int> indegree(numCourses , 0);
-        vector<vector<int>> adj(numCourses);
+    bool isCycleDFS(int src , vector<bool>&vis , vector<bool>&recPath , vector<vector<int>>&edges){
 
-        // Build the graph 
-        for(auto &pre : prerequisites){
-            adj[pre[1]].push_back(pre[0]);
-            indegree[pre[0]]++;
-        }
+        vis[src] = true;
+        recPath[src] = true;
 
-        queue<int> q;
-        for(int i=0; i<numCourses; i++){
-            if(indegree[i]==0){
-                q.push(i);
+        for(int i=0; i<edges.size(); i++){
+
+            int v = edges[i][0];
+            int u = edges[i][1];
+
+            if( u == src){
+                if(!vis[v]){
+                    if(isCycleDFS(v,vis,recPath,edges)){
+                        return true;
+                    }
+                }else if(recPath[v]){
+                    return true;
+                }
             }
         }
 
-        int count=0;
-        while(!q.empty()){
-            int course = q.front();
-            q.pop();
-            count++;// No of nodes processed
+        recPath[src] = false;
+        return false;
+    }
+    bool canFinish(int n, vector<vector<int>>& edges) {
+        
+        vector<bool>vis(n , false);
+        vector<bool>recPath(n , false);
 
-            for(int next : adj[course]){
-                indegree[next]--;
-                if(indegree[next]==0){
-                    q.push(next);
+        for(int i=0; i<n; i++){
+            if(!vis[i]){
+                if(isCycleDFS(i, vis , recPath , edges)){
+                    return false;
                 }
-            }       
+            }
         }
-        return count== numCourses;
+
+        return true;
     }
 };
