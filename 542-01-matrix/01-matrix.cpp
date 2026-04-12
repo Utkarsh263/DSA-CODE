@@ -1,38 +1,70 @@
 class Solution {
 public:
     vector<vector<int>> updateMatrix(vector<vector<int>>& mat) {
-        int m = mat.size();
-        int n = mat[0].size();
+        // 286, 1765
 
-        vector<vector<int>> dist(m , vector<int>(n , -1));
-        queue<pair<int , int>>q;
+        int n = mat.size();
+        int m = mat[0].size();
 
-        // pushing all 0 inside at once 
-        for(int i=0; i<m ; i++){
-            for(int j=0; j<n; j++){
-                if(mat[i][j]==0){
-                    dist[i][j]=0;
-                    q.push({i ,j});
+        // Visited Matrix 
+        vector<vector<int>>vis(n, vector<int>(m, 0));
+        // Distance Matrix
+        vector<vector<int>>dist(n, vector<int>(m ,0));
+
+        // Queue for bfs traversal (i, j) , dist
+        queue<pair<pair<int, int>, int>>q;
+
+        // First push all 0's in the queue with dist 0 for multi-source bfs 
+
+        for(int i=0; i<n; i++){
+            for(int j=0; j<m; j++){
+                if(mat[i][j] == 0){
+                    q.push({{i, j} , 0});
+                    vis[i][j] = 1;
                 }
             }
         }
 
-        vector<pair<int , int>>dirs = {{-1,0}, {1,0}, {0,-1}, {0,1}};
-        // BFS
+        // Perform bfs 
+
         while(!q.empty()){
-            auto[x, y] = q.front();
+
+            int r = q.front().first.first;
+            int c = q.front().first.second;
+            int d = q.front().second;
+
             q.pop();
 
-            for(auto[dx, dy] : dirs){
-                int nx = x+dx;
-                int ny = y+dy;
+            dist[r][c] = d; // Stored the distance of the nodes being visited
 
-                if(nx >= 0 && ny >= 0 && nx < m && ny < n && dist[nx][ny] == -1){
-                    dist[nx][ny]= dist[x][y]+1;
-                    q.push({nx , ny});
-                }
+            // Explore all 4 directions 
+            
+             // UP
+            if(r-1 >= 0 && vis[r-1][c] == 0) {
+                q.push({{r-1, c}, d+1});
+                vis[r-1][c] = 1;
             }
+
+            // DOWN
+            if(r+1 < n && vis[r+1][c] == 0) {
+                q.push({{r+1, c}, d+1});
+                vis[r+1][c] = 1;
+            }
+
+            // LEFT
+            if(c-1 >= 0 && vis[r][c-1] == 0) {
+                q.push({{r, c-1}, d+1});
+                vis[r][c-1] = 1;
+            }
+
+            // RIGHT
+            if(c+1 < m && vis[r][c+1] == 0) {
+                q.push({{r, c+1}, d+1});
+                vis[r][c+1] = 1;
+            }
+
         }
+
         return dist;
     }
 };
