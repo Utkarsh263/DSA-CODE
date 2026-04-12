@@ -1,7 +1,6 @@
 class Solution {
 public:
     void dfs(int node , vector<vector<int>>&adj , vector<int>&visited){
-
         visited[node] = 1;
 
         for(auto it : adj[node]){
@@ -16,8 +15,6 @@ public:
 
         vector<vector<int>>adj(n);
 
-        // Changing matrix to list
-
         for(int i=0; i<n; i++){
             for(int j=0; j<n; j++){
                 if(isConnected[i][j] != 0 && i != j){
@@ -27,7 +24,6 @@ public:
             }
         }
 
-        // DFS Traversal 
         vector<int>visited(n, 0);
         int count = 0;
 
@@ -36,7 +32,8 @@ public:
                 count++;
                 dfs(i, adj, visited);
             }
-        } 
+        }
+
         return count;
     }
 };
