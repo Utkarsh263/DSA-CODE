@@ -1,39 +1,56 @@
 class Solution {
 public:
-    vector<int> findOrder(int numCourses, vector<vector<int>>& prerequisites) {
-        vector<vector<int>> adj(numCourses);
-        vector<int> indegree(numCourses, 0);
+    bool isCycleDFS(int src , vector<bool>&vis , vector<bool>&recPath, vector<vector<int>>&edges , stack<int>&st){
 
-        for(auto &pre : prerequisites){
-            adj[pre[1]].push_back(pre[0]);
-            indegree[pre[0]]++;
-        }
+        vis[src] = true;
+        recPath[src] = true;
 
-        queue<int>q;
-        for(int i=0; i<numCourses; i++){
-            if(indegree[i]==0){
-                q.push(i);
-            }
-        }
+        for(int i=0; i<edges.size(); i++){
+            int v = edges[i][0];
+            int u = edges[i][1];
 
-        vector<int>topo;
-        while(!q.empty()){
-            int course= q.front();
-            q.pop();
-            topo.push_back(course);
-
-            for(int next : adj[course]){
-                indegree[next]--;
-                if(indegree[next]==0){
-                    q.push(next);
+            if(u==src){
+                if(!vis[v]){
+                    if(isCycleDFS(v , vis, recPath , edges , st)){
+                        return true;
+                    }
+                }else if(recPath[v]){
+                    return true;
                 }
             }
         }
 
-        if(topo.size()== numCourses){
-            return topo;
-        }else{
-            return {};
+        recPath[src] = false;
+
+        st.push(src);
+
+        return false;
+
+    }
+    vector<int> findOrder(int n, vector<vector<int>>& edges) {
+        
+        vector<bool>vis(n , false);
+        vector<bool>recPath(n , false);
+        stack<int>st;
+
+        for(int i=0; i<n; i++){
+            if(!vis[i]){
+                if(isCycleDFS(i, vis , recPath , edges , st)){
+                    return {};
+                }
+            }
         }
+
+        // No cycle exists 
+
+        vector<int>ans;
+
+        while(!st.empty()){
+            ans.push_back(st.top());
+            st.pop();
+        }
+
+        return ans;
+
     }
 };
