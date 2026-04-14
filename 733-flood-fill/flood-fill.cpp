@@ -1,29 +1,32 @@
 class Solution {
 public:
-    void dfs(vector<vector<int>>& image, int r, int c,int oldColor, int newColor){
+    void dfs(vector<vector<int>>&image , int r, int c, int original , int newColor){
+        
         int rows = image.size();
         int cols = image[0].size();
 
-        if(r<0 || c<0 || r>=rows ||c>=cols){
-            return;
-        }
-        if(image[r][c] != oldColor){
+        // Boundary Check 
+        if(r<0 || c<0 || r>=rows || c>=cols || image[r][c] != original){
             return;
         }
 
-        image[r][c]= newColor;
+        image[r][c] = newColor;
 
-        dfs(image , r+1 , c , oldColor , newColor);
-        dfs(image , r-1 , c , oldColor , newColor);
-        dfs(image , r , c-1 , oldColor , newColor);
-        dfs(image , r , c+1 , oldColor , newColor);
+        // Explore further 4 directions
+        dfs(image, r+1 , c, original , newColor);
+        dfs(image , r-1 , c, original, newColor);
+        dfs(image , r, c+1, original , newColor);
+        dfs(image , r, c-1 , original , newColor);
     }
     vector<vector<int>> floodFill(vector<vector<int>>& image, int sr, int sc, int newColor) {
-        int oldColor = image[sr][sc];
-        if(oldColor == newColor ){
+        
+        int original = image[sr][sc];
+
+        if(original == newColor){
             return image;
         }
-        dfs(image , sr , sc , oldColor , newColor);
+
+        dfs(image , sr, sc , original , newColor);
         return image;
     }
 };
