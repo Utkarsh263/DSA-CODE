@@ -1,45 +1,54 @@
 class Solution {
 public:
-    void dfs(vector<vector<char>>&board , int i , int j , int m ,int n){
-        if(i<0||j<0|| i>=m || j>=n || board[i][j] !='O'){
+    int m , n;
+
+    void dfs(int i, int j, vector<vector<char>>& board) {
+        // base condition
+        if(i < 0 || j < 0 || i >= n || j >= m || board[i][j] != 'O')
             return;
-        }
 
-        board[i][j]='S';
+        // mark as safe
+        board[i][j] = 'T';
 
-        dfs(board, i+1, j, m, n);
-        dfs(board, i-1, j, m, n);
-        dfs(board, i, j+1, m, n);
-        dfs(board, i, j-1, m, n);
+        // explore 4 directions
+        dfs(i + 1, j, board);
+        dfs(i - 1, j, board);
+        dfs(i, j + 1, board);
+        dfs(i, j - 1, board);
     }
+    
     void solve(vector<vector<char>>& board) {
-        int m = board.size();
-        int n = board[0].size();
+        
+        n = board.size();
+        m = board[0].size();
 
-        for(int i=0; i<m; i++){
-            if(board[i][0]=='O'){
-                dfs(board,i,0,m,n);
+        // Traverse the row boundary 
+        for(int j=0; j<m; j++){
+            if(board[0][j] == 'O'){
+                dfs(0, j, board);
             }
-            if(board[i][n-1]=='O'){
-                dfs(board,i,n-1,m,n);
+            if(board[n-1][j] == 'O'){
+                dfs(n-1 , j, board);
             }
         }
 
-        for(int j=0; j<n; j++){
-            if(board[0][j]=='O'){
-                dfs(board , 0, j, m,n);
+        // Traverse the column boundary 
+        for(int i=0; i<n; i++){
+            if(board[i][0] == 'O'){
+                dfs(i, 0, board);
             }
-            if(board[m-1][j]=='O'){
-                dfs(board , m-1, j, m,n);
+            if(board[i][m-1] == 'O'){
+                dfs(i , m-1, board);
             }
         }
 
-        for(int i=0; i<m; i++){
-            for(int j=0; j<n; j++){
-                if(board[i][j]=='S'){
-                    board[i][j]= 'O';
-                }else if(board[i][j] == 'O'){
-                    board[i][j]='X';
+        // Flip surrounded + restore safe 
+        for(int i=0; i<n; i++){
+            for(int j=0; j<m; j++){
+                if(board[i][j] == 'O'){
+                    board[i][j] = 'X';
+                }else if(board[i][j] == 'T'){
+                    board[i][j] = 'O';
                 }
             }
         }
