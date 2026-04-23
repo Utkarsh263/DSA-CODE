@@ -2,9 +2,8 @@ class Solution {
 public:
     int maxProfit(vector<int>& prices) {
         
-        // we will track min price and max profit to track the situation 
         int minPrice = INT_MAX;
-        int maxProfit = INT_MIN;
+        int maxProfit = INT_MIN; 
 
         int n = prices.size();
 
