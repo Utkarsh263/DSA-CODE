@@ -1,6 +1,7 @@
 class Solution {
 public:
     int maxSubArray(vector<int>& nums) {
+        
         int currSum = 0;
         int totalSum = INT_MIN;
 
@@ -9,9 +10,8 @@ public:
             if(currSum < 0){
                 currSum = 0;
             }
-            currSum += nums[i];
-            
 
+            currSum += nums[i];
             totalSum = max(totalSum , currSum);
         }
 
