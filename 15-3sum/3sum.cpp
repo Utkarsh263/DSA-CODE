@@ -1,24 +1,25 @@
 class Solution {
 public:
     vector<vector<int>> threeSum(vector<int>& nums) {
-        vector<vector<int>>ans;
-        // Sort the array 
-        sort(nums.begin(), nums.end());
+        sort(nums.begin(),nums.end());
+        vector<vector<int>> res;
         int n = nums.size();
 
-        // Fix one element and use two pointer approach to iterate and traverse the remaining array
-
-        for(int i=0; i<n-2; i++){
+        for(int i=0;i<n;i++){
             if(i>0 && nums[i] == nums[i-1]){
                 continue;
             }
+
             int left = i+1;
             int right = n-1;
 
-            while(left < right){
+            while(left <right){
+
                 int sum = nums[i] + nums[left] + nums[right];
+
                 if(sum == 0){
-                    ans.push_back({nums[i] , nums[left] , nums[right]});
+                    res.push_back({nums[i],nums[left], nums[right]});
+
                     left++;
                     right--;
 
@@ -37,6 +38,6 @@ public:
             }
         }
 
-        return ans;
+        return res;
     }
 };
