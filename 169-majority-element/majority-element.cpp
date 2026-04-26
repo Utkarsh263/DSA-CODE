@@ -2,13 +2,14 @@ class Solution {
 public:
     int majorityElement(vector<int>& nums) {
         
-        // Boyee Moore Algorithm 
         int count = 0;
         int candidate = 0;
 
-        for(int i=0; i<nums.size(); i++){
+        int n = nums.size();
 
-            if(count ==0){
+        for(int i =0;  i<n; i++){
+
+            if(count == 0){
                 candidate = nums[i];
             }
 
