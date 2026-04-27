@@ -2,6 +2,7 @@ class Solution {
 public:
     int longestConsecutive(vector<int>& nums) {
         
+        // Hash Set for O(1) lookup or searching 
         unordered_set<int>st(nums.begin(), nums.end());
         int longest = 0;
 
@@ -12,7 +13,7 @@ public:
                 int current = num;
                 int count = 1;
 
-                while(st.find(current + 1) != st.end()){
+                while(st.find(current+1) != st.end()){
                     current++;
                     count++;
                 }
