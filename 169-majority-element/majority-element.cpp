@@ -5,15 +5,12 @@ public:
         int count = 0;
         int candidate = 0;
 
-        int n = nums.size();
-
-        for(int i =0;  i<n; i++){
-
+        for(int i=0; i<nums.size(); i++){
             if(count == 0){
                 candidate = nums[i];
             }
 
-            if(nums[i] == candidate){
+            if(candidate == nums[i]){
                 count++;
             }else{
                 count--;
