@@ -1,27 +1,23 @@
 class Solution {
 public:
     vector<int> rearrangeArray(vector<int>& nums) {
+        // Optimal approach 
         
-        // Brute Force
-        vector<int> pos , neg;
         int n = nums.size();
+        int posIndex = 0;
+        int negIndex = 1;
+        vector<int>ans(n);
 
         for(int i=0; i<n; i++){
             if(nums[i] > 0){
-                pos.push_back(nums[i]);
+                ans[posIndex] = nums[i];
+                posIndex += 2;
             }else{
-                neg.push_back(nums[i]);
+                ans[negIndex] = nums[i];
+                negIndex += 2;
             }
         }
 
-        vector<int>ans;
-
-        for(int i=0; i<pos.size(); i++){
-            ans.push_back(pos[i]);
-            ans.push_back(neg[i]);
-        }
-
         return ans;
-
     }
 };
