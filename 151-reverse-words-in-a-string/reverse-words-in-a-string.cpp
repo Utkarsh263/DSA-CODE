@@ -4,10 +4,11 @@ public:
         
         int i=0;
         int n = s.size();
-        vector<string>words;  // Extra vector to store the words 
 
-        while(i< n){
-            //Leading spaces 
+        vector<string>words;
+
+        while(i<n){
+
             while(i<n && s[i] == ' '){
                 i++;
             }
@@ -17,7 +18,8 @@ public:
             }
 
             string word = "";
-            while(i<n  && s[i] != ' '){
+
+            while(i<n && s[i] != ' '){
                 word += s[i];
                 i++;
             }
@@ -25,10 +27,12 @@ public:
             words.push_back(word);
         }
 
+        // reverse the vector 
         reverse(words.begin() , words.end());
 
+
         string result = "";
-        for(int i=0; i<words.size();i++){
+        for(int i=0; i<words.size(); i++){
             result += words[i];
 
             if(i != words.size()-1){
