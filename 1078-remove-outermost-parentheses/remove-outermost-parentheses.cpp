@@ -1,21 +1,20 @@
 class Solution {
 public:
     string removeOuterParentheses(string s) {
+        
         string result = "";
         int depth = 0;
 
-        for(char c : s){
-            if(c=='('){
+        for(char ch : s){
+            if(ch == '('){
                 if(depth > 0){
-                    result += c;
+                    result += ch;
                 }
-
-                depth++;  // Exclude the outermost parenthesis
+                depth++;
             }else{
-
                 depth--;
                 if(depth > 0){
-                    result +=  c;
+                    result += ch;
                 }
             }
         }
