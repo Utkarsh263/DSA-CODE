@@ -2,20 +2,20 @@ class Solution {
 public:
     vector<vector<int>> merge(vector<vector<int>>& intervals) {
         
-        // Sort intervals according to the start time 
-        sort(intervals.begin(), intervals.end());
-
         vector<vector<int>>result;
 
+        sort(intervals.begin(), intervals.end());
+
+        // Always first interval going to add
         result.push_back(intervals[0]);
 
-        for(auto &interval : intervals){
-            // If there is no overlap 
+        for(int i=0; i<intervals.size(); i++){
 
-            if(result.back()[1] < interval[0]){
-                result.push_back(interval);
+            // overlap condition 
+            if(result.back()[1] >= intervals[i][0]){
+                result.back()[1] = max(result.back()[1], intervals[i][1]);
             }else{
-                result.back()[1] = max(result.back()[1] , interval[1]);
+                result.push_back(intervals[i]);
             }
         }
 
