@@ -9,7 +9,7 @@ public:
             freq[ch]++;
         }
 
-        // Building the Max Heap 
+        // Building max Heap 
         priority_queue<pair<int, char>>pq;
 
         for(auto it : freq){
@@ -17,15 +17,15 @@ public:
         }
 
         string result = "";
-
         while(!pq.empty()){
+
             auto top = pq.top();
             pq.pop();
 
-            int count = top.first;
+            int maxFreq = top.first;
             char ch = top.second;
 
-            result += string(count ,ch);
+            result += string(maxFreq , ch);
         }
 
         return result;
