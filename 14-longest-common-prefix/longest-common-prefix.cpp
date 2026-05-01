@@ -6,18 +6,19 @@ public:
             return "";
         }
 
-        for(int i=0; i<strs[0].size(); i++){
+        string prefix = strs[0];
 
-            char c = strs[0][i];
+        for(int i=1; i<strs.size(); i++){
+            
+            while(strs[i].find(prefix) != 0){
+                prefix.pop_back();
 
-            for(int j=1; j<strs.size() ; j++){
-
-                if(i>= strs[j].size() || strs[j][i] != c){
-                    return strs[0].substr(0, i);
+                if(prefix.empty()){
+                    return "";
                 }
             }
         }
 
-        return strs[0];
+        return prefix;
     }
 };
