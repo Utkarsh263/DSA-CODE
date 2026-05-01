@@ -2,14 +2,10 @@ class Solution {
 public:
     bool rotateString(string s, string goal) {
         
-        // If strings are of unequal length , return false as no rotation is possible 
-
-        if(s.length() != goal.length()){
+        if(s.size() != goal.size()){
             return false;
         }
 
-        string temp = s+s;
-
-        return temp.find(goal) != string::npos;
+        return (s+s).find(goal) != string::npos;
     }
 };
