@@ -2,28 +2,30 @@ class Solution {
 public:
     string frequencySort(string s) {
         
-        unordered_map<char, int>freq;
+        // Hashmap 
+        unordered_map<char , int>freq;
 
-        for(char c : s){
-            freq[c]++;
+        for(char ch : s){
+            freq[ch]++;
         }
 
-        int n = s.size();
+        // Building the Max Heap 
+        priority_queue<pair<int, char>>pq;
 
-        vector<vector<char>>bucket(n+1);
-
-        for(auto &p: freq){
-            char ch = p.first;
-            int f = p.second;
-            bucket[f].push_back(ch);
+        for(auto it : freq){
+            pq.push({it.second, it.first});
         }
 
-        string result;
+        string result = "";
 
-        for(int i=n; i>=1; i--){
-            for(char c : bucket[i]){
-                result += string(i, c);
-            }
+        while(!pq.empty()){
+            auto top = pq.top();
+            pq.pop();
+
+            int count = top.first;
+            char ch = top.second;
+
+            result += string(count ,ch);
         }
 
         return result;
