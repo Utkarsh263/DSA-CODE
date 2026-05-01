@@ -2,28 +2,28 @@ class Solution {
 public:
     bool isIsomorphic(string s, string t) {
         
-        unordered_map<char, char>ST;
-        unordered_map<char, char>TS;
+        unordered_map<char, char>sT;
+        unordered_map<char, char>tS;
+
+        if(s.length() != t.length()){
+            return false;
+        }
 
         for(int i=0; i<s.size(); i++){
 
-            char c1 = s[i];
-            char c2 = t[i];
+            //check for s-> t mapping
 
-            // Adding violating conditions
-
-            if(ST.count(c1) && ST[c1] != c2){
+            if(sT.count(s[i]) && sT[s[i]] != t[i]){
                 return false;
             }
 
-            if(TS.count(c2) && TS[c2] != c1){
+            // check for t->s mapping 
+            if(tS.count(t[i]) && tS[t[i]] != s[i]){
                 return false;
             }
 
-            //Adding character to the map 
-
-            ST[c1] = c2;
-            TS[c2] = c1;
+            sT[s[i]] = t[i];
+            tS[t[i]] = s[i];
         }
 
         return true;
