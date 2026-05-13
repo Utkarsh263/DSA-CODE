@@ -25,8 +25,8 @@ public:
                 ListNode* start = head;
 
                 while(start != slow){
-                    start = start->next;
                     slow = slow->next;
+                    start = start->next;
                 }
 
                 return start;
