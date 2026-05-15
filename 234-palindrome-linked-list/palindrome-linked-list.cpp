@@ -12,10 +12,12 @@ class Solution {
 public:
     bool isPalindrome(ListNode* head) {
         
+        // If no node is present or one node is present 
         if(head == NULL || head->next == NULL){
             return true;
         }
 
+        // Slow and fast pointer to get slow on the middle of Linked List 
         ListNode* slow = head;
         ListNode* fast = head;
 
@@ -24,8 +26,8 @@ public:
             fast = fast->next->next;
         }
 
+        // Now reversing the Linked List from the middle and will check values of node to find out whether LL  is palindrome or not 
         ListNode* prev = NULL;
-
         while(slow != NULL){
             ListNode* next = slow->next;
             slow->next = prev;
@@ -40,7 +42,6 @@ public:
             if(a->val != b->val){
                 return false;
             }
-
             a = a->next;
             b = b->next;
         }
