@@ -25,27 +25,27 @@ public:
         }
 
         ListNode* prev = NULL;
-        ListNode* curr = slow;
 
-        while(curr != NULL){
-            ListNode* next = curr->next;
-            curr->next = prev;
-            prev = curr;
-            curr = next;
+        while(slow != NULL){
+            ListNode* next = slow->next;
+            slow->next = prev;
+            prev = slow;
+            slow = next;
         }
 
-        ListNode* left = head;
-        ListNode* right = prev;
+        ListNode* a = head;
+        ListNode* b = prev;
 
-        while(right != NULL){
-            if(left->val != right->val){
+        while(b != NULL){
+            if(a->val != b->val){
                 return false;
             }
 
-            left = left->next;
-            right = right->next;
+            a = a->next;
+            b = b->next;
         }
 
         return true;
+        
     }
 };
