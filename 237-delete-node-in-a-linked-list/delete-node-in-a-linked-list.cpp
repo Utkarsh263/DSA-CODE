@@ -9,6 +9,8 @@
 class Solution {
 public:
     void deleteNode(ListNode* node) {
+        
+        // Copy the next val to teh current node 
         node->val = node->next->val;
         node->next = node->next->next;
     }
