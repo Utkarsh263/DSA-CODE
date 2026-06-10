@@ -18,19 +18,16 @@ public:
         ListNode* slow = dummy;
         ListNode* fast = dummy;
 
-        // Iterate fast to n steps forward 
-
         for(int i=0; i<=n; i++){
             fast = fast->next;
         }
 
-        while(fast != NULL){
-            slow = slow->next;
+        while(fast){
             fast = fast->next;
+            slow = slow->next;
         }
 
         slow->next = slow->next->next;
-
         return dummy->next;
     }
 };
