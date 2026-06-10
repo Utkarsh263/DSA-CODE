@@ -10,14 +10,25 @@
  */
 class Solution {
 public:
+    ListNode* reverse(ListNode* head){
+        ListNode* prev = NULL;
+        ListNode* curr = head;
+
+        while(curr){
+            ListNode* next = curr->next;
+            curr->next = prev;
+            prev = curr;
+            curr = next;
+        }
+
+        return prev;
+    }
     bool isPalindrome(ListNode* head) {
         
-        // If no node is present or one node is present 
         if(head == NULL || head->next == NULL){
             return true;
         }
 
-        // Slow and fast pointer to get slow on the middle of Linked List 
         ListNode* slow = head;
         ListNode* fast = head;
 
@@ -26,27 +37,21 @@ public:
             fast = fast->next->next;
         }
 
-        // Now reversing the Linked List from the middle and will check values of node to find out whether LL  is palindrome or not 
-        ListNode* prev = NULL;
-        while(slow != NULL){
-            ListNode* next = slow->next;
-            slow->next = prev;
-            prev = slow;
-            slow = next;
-        }
+        ListNode* secondHalf = reverse(slow);
 
-        ListNode* a = head;
-        ListNode* b = prev;
+        ListNode* first = head;
+        ListNode* second = secondHalf;
 
-        while(b != NULL){
-            if(a->val != b->val){
+        while(second != NULL){
+            
+            if(first->val != second->val){
                 return false;
             }
-            a = a->next;
-            b = b->next;
+
+            first = first->next;
+            second = second->next;
         }
 
         return true;
-        
     }
 };
