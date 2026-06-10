@@ -16,10 +16,9 @@ public:
         ListNode* curr = dummy;
 
         int carry = 0;
-
         while(l1 != NULL || l2 != NULL || carry != 0){
-
-            int sum = carry; // If carry exists will be added to sum 
+            
+            int sum = carry;
 
             if(l1 != NULL){
                 sum += l1->val;
@@ -34,7 +33,6 @@ public:
             carry = sum / 10;
 
             curr->next = new ListNode(sum % 10);
-
             curr = curr->next;
         }
 
