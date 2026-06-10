@@ -15,6 +15,7 @@ public:
         ListNode* dummy = new ListNode(0);
         dummy->next = head;
 
+        // Two pointers approach 
         ListNode* slow = dummy;
         ListNode* fast = dummy;
 
@@ -23,8 +24,8 @@ public:
         }
 
         while(fast){
-            fast = fast->next;
             slow = slow->next;
+            fast = fast->next;
         }
 
         slow->next = slow->next->next;
