@@ -2,30 +2,32 @@ class Solution {
 public:
     string frequencySort(string s) {
         
-        // Hashmap 
-        unordered_map<char , int>freq;
+        // We will use hashmap to store frequency and heap for max character 
 
-        for(char ch : s){
-            freq[ch]++;
+        unordered_map<char, int>freq;
+
+        for(int i=0; i<s.size(); i++){
+            freq[s[i]]++;
         }
 
-        // Building max Heap 
+        string result = "";
+
+        // Building max heap 
         priority_queue<pair<int, char>>pq;
 
         for(auto it : freq){
             pq.push({it.second, it.first});
         }
 
-        string result = "";
+        // Process the max heap till empty 
         while(!pq.empty()){
-
-            auto top = pq.top();
+            auto it = pq.top();
             pq.pop();
 
-            int maxFreq = top.first;
-            char ch = top.second;
+            int freq = it.first;
+            char ch = it.second;
 
-            result += string(maxFreq , ch);
+            result += string(freq, ch);
         }
 
         return result;
