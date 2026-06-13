@@ -6,35 +6,34 @@ public:
         int n = s.size();
 
         // Skip leading spaces 
-        while(i<n && s[i] ==' '){
+        while(i<n && s[i] == ' '){
             i++;
         }
 
-        // Sign 
+        // Determine sign 
         int sign = 1;
         if(i<n && (s[i] == '+' || s[i] == '-')){
-            if(s[i] == '-'){
+            if(s[i] =='-'){
                 sign = -1;
             }
             i++;
         }
 
-        // Convert digits 
-        long result = 0;
+        long long result = 0;
 
         while(i<n && isdigit(s[i])){
 
-            result = result*10 +(s[i] -'0');
+           result = result*10 + (s[i] -'0');
 
-            if(sign * result > INT_MAX){
+           if(sign * result > INT_MAX){
                 return INT_MAX;
-            }
+           }
 
-            if(sign * result < INT_MIN){
+           if(sign * result < INT_MIN){
                 return INT_MIN;
-            }
+           }
 
-            i++;
+           i++;
         }
 
         return sign*result;
