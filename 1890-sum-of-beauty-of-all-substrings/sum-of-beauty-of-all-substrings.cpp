@@ -1,29 +1,24 @@
 class Solution {
 public:
     int beautySum(string s) {
-        // Okk we will generate all the string and find the bauty by fixing index i and start growing from index j 
+        
+        // Start from i and grow to the end j and maintaining frequency 
 
         int count = 0;
-        
-
-        
 
         for(int i=0; i<s.size(); i++){
-
-            vector<int>arr(26, 0);
+            vector<int>freq(26, 0);
 
             for(int j=i; j<s.size(); j++){
 
-                arr[s[j]-'a']++;
-
-                int maxi =0;
+                freq[s[j]-'a']++;
+                int maxi = 0;
                 int mini = INT_MAX;
 
                 for(int k=0; k<26; k++){
-                    
-                    if(arr[k] > 0){
-                        maxi = max(maxi, arr[k]);
-                        mini = min(mini , arr[k]);
+                    if(freq[k] > 0){
+                        maxi = max(maxi, freq[k]);
+                        mini = min(mini, freq[k]);
                     }
                 }
 
