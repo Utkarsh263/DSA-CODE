@@ -1,9 +1,9 @@
 class Solution {
 public:
     bool isIsomorphic(string s, string t) {
-        // We will make two maps and check for mapping 
-
-        unordered_map<char, char>sT;
+        
+        // We will create the two maps for this mapping 
+        unordered_map<char , char>sT;
         unordered_map<char , char>tS;
 
         if(s.length() != t.length()){
@@ -11,21 +11,19 @@ public:
         }
 
         for(int i=0; i<s.length(); i++){
-
-            // Check s->t mapping 
             if(sT.contains(s[i]) && sT[s[i]] != t[i]){
                 return false;
             }
 
-            // check t->s mapping 
             if(tS.contains(t[i]) && tS[t[i]] != s[i]){
                 return false;
             }
 
-            // Create the mapping 
+            // Inserting the mapping in hashmap 
             sT[s[i]] = t[i];
             tS[t[i]] = s[i];
         }
+
         return true;
     }
 };
