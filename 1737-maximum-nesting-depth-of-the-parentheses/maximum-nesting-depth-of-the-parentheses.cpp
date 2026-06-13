@@ -6,10 +6,9 @@ public:
         int maxDepth = 0;
 
         for(char ch : s){
-
             if(ch == '('){
                 depth++;
-                maxDepth = max(maxDepth , depth);
+                maxDepth = max(depth , maxDepth);
             }else if(ch == ')'){
                 depth--;
             }else{
