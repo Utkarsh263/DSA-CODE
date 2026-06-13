@@ -5,14 +5,14 @@ public:
         // Sort the string array 
         sort(strs.begin(), strs.end());
 
-        string first = strs.front();
+        string front = strs.front();
         string back = strs.back();
 
-        int i=0; 
-        while(i< first.size() && i < back.size() && first[i] == back[i]){
+        int i = 0;
+        while(i<front.size() && i<back.size() && front[i] == back[i]){
             i++;
         }
 
-        return first.substr(0, i);
+        return front.substr(0, i);
     }
 };
