@@ -1,28 +1,30 @@
 class Solution {
 public:
-    long long mod = 1e9+7;
+    long long MOD = 1e9 + 7;
 
-    long long power(long long a , long long b){
+    long long power(long long x , long long n){
+        long long ans = 1;
 
-        long long res = 1;
+        while(n > 0){
 
-        while(b > 0){
-
-            if(b % 2 == 1){
-                res = (res * a)% mod;
+            if(n % 2 == 1){
+                ans  = (ans*x)% MOD;
             }
 
-            a = (a*a) % mod;
-            b /= 2;
+            x = (x*x) % MOD;
+            n /= 2;
         }
 
-        return res;
+        return ans;
     }
     int countGoodNumbers(long long n) {
         
-        long long oddCount = n/2;
-        long long evenCount = (n+1)/2;
+        long long evenPos = (n+1)/2;
+        long long oddPos = n/2;
 
-        return (power(5, evenCount)* power(4 , oddCount)) % mod;
+        long long evenWays = power(5, evenPos);
+        long long oddWays = power(4 , oddPos);
+
+        return (evenWays * oddWays) % MOD;
     }
 };
