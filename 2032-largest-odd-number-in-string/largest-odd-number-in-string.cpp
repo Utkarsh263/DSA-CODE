@@ -1,13 +1,11 @@
 class Solution {
 public:
-    string largestOddNumber(string num) {
+    string largestOddNumber(string nums) {
         
-        // Traverse from back and find out number and return that substring 
-
-        for(int i=num.size()-1; i>=0; i--){
-
-            if(num[i] % 2 == 1){
-                return num.substr(0, i+1);
+        // We have to find largest odd number in the string 
+        for(int i=nums.size()-1 ; i>=0; i--){
+            if(nums[i] % 2 == 1){
+                return nums.substr(0, i+1);  // Its 0 based indexing 
             }
         }
 
