@@ -3,12 +3,13 @@ public:
     string longestCommonPrefix(vector<string>& strs) {
         
         // Sort the string array 
-        sort(strs.begin(), strs.end());
+        sort(strs.begin() , strs.end());
 
         string front = strs.front();
         string back = strs.back();
 
-        int i = 0;
+        int i=0;
+
         while(i<front.size() && i<back.size() && front[i] == back[i]){
             i++;
         }
