@@ -5,11 +5,12 @@ public:
         int depth = 0;
         int maxDepth = 0;
 
-        for(char c : s){
-            if(c=='('){
+        for(char ch : s){
+
+            if(ch == '('){
                 depth++;
-                maxDepth = max(depth , maxDepth);
-            }else if(c==')'){
+                maxDepth = max(maxDepth , depth);
+            }else if(ch == ')'){
                 depth--;
             }else{
                 continue;
