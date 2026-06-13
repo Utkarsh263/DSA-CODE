@@ -1,1 +1,1 @@
-<h2>sum-of-beauty-of-all-substrings Notes</h2><hr>[ Time taken: 8 m 44 s ]
+<h2>sum-of-beauty-of-all-substrings Notes</h2><hr>[ Time taken: 2d 12hrs 16m 43s ]
