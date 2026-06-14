@@ -1,18 +1,16 @@
 class Solution {
 public:
-    vector<vector<int>>ans;
-    vector<int>path;
+    void solve(int idx, vector<int>&candidates , int target , vector<int>&path , vector<vector<int>>&result){
 
-    void backtrack(int start , int target , vector<int>&candidates){
-
-        if(target == 0){
-            ans.push_back(path);
+       if(target == 0){
+            result.push_back(path);
             return;
-        }
+       }
 
-        for(int i= start ; i<candidates.size(); i++){
-
-            if(i>start && candidates[i] == candidates[i-1]){
+       for(int i=idx; i<candidates.size(); i++){
+        
+            // Skip duplicates
+            if(i> idx && candidates[i] == candidates[i-1]){
                 continue;
             }
 
@@ -21,14 +19,17 @@ public:
             }
 
             path.push_back(candidates[i]);
-            backtrack(i+1 , target-candidates[i] , candidates);
+            solve(i+1 , candidates , target-candidates[i] , path , result);
             path.pop_back();
-        }
+       }
     }
     vector<vector<int>> combinationSum2(vector<int>& candidates, int target) {
-        
+        vector<int>path;
+        vector<vector<int>>result;
         sort(candidates.begin(), candidates.end());
-        backtrack(0, target , candidates);
-        return ans;
+
+        solve(0, candidates , target , path, result);
+
+        return result;
     }
 };
