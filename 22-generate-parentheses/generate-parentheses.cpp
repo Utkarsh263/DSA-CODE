@@ -1,29 +1,27 @@
 class Solution {
 public:
-    void solve(int n , int open , int close , string res , vector<string>&ans){
+    void solve(int n , int open , int close , string curr , vector<string>&ans){
 
-        if(res.size() == 2*n){
-            ans.push_back(res);
+        if(curr.length() == 2*n){
+            ans.push_back(curr);
             return;
         }
 
-        // For opening bracket , max n can be used for opening 
+        // For opening bracket 
         if(open < n){
-            solve(n, open+1 , close , res+'(' , ans);
-            
+            solve(n, open+1 , close , curr+'(' , ans);
         }
 
-        // Closing is dependent on opening bracets 
         if(close < open){
-            solve(n, open , close+1 , res + ')', ans);
-            
+            solve(n, open , close+1, curr+')', ans);
         }
     }
     vector<string> generateParenthesis(int n) {
+        
         vector<string>ans;
-        string curr = "";
+        string res = "";
+        solve(n, 0, 0, res, ans);
 
-        solve(n, 0, 0, curr , ans);
         return ans;
     }
 };
