@@ -1,28 +1,30 @@
 class Solution {
 public:
     int rows, cols;
-    bool dfs(int idx , vector<vector<char>>&board , string word, int r, int c){
+    bool dfs(int idx, vector<vector<char>>&board, string &word, int r, int c){
 
-        // Base case 
+        // Base case
         if(idx == word.size()){
-            return true;
+            return true; // Word found
         }
 
-        // False condition 
-        if (r < 0 || c < 0 ||r >= rows || c >= cols || board[r][c] != word[idx]) {
+        // Invalid condition 
+        if(r>=rows || c>=cols || r<0 || c<0 || board[r][c] != word[idx]){
             return false;
         }
 
         char temp = board[r][c];
-        board[r][c] = '#'; // Mark as visited 
+        board[r][c] = '#'; // Mark as visited to avoid reuse of alphabet 
 
-        bool found = dfs(idx+1 , board, word , r+1 , c) || dfs(idx+1 , board, word , r-1 , c) || dfs(idx+1 , board, word , r , c+1) || dfs(idx+1 , board, word , r , c-1);
+        // Explore all 4 directions 
 
-        // Backtrack 
+        bool found = dfs(idx+1, board , word, r+1, c) || dfs(idx+1, board , word, r-1, c) || dfs(idx+1, board , word, r, c-1) ||dfs(idx+1, board , word, r, c+1);
+
+        // Backtrack to prev path 
+
         board[r][c] = temp;
 
         return found;
-
     }
     bool exist(vector<vector<char>>& board, string word) {
         
@@ -31,12 +33,11 @@ public:
 
         for(int i=0; i<rows; i++){
             for(int j=0; j<cols; j++){
-                if(dfs(0, board , word, i, j)){
+                if(dfs(0, board, word, i, j)){
                     return true;
                 }
             }
         }
-
         return false;
     }
 };
