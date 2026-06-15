@@ -1,16 +1,27 @@
 class Solution {
 public:
-    vector<vector<int>> subsets(vector<int>& nums) {
-    int n = nums.size();
-    vector<vector<int>> result;
-    for (int mask = 0; mask < (1 << n); mask++) {
-        vector<int> subset;
-        for (int i = 0; i < n; i++) {
-            if (mask & (1 << i)) subset.push_back(nums[i]);
-        }
-        result.push_back(subset);
-    }
-    return result;
-}
+    void solve(int idx, vector<int>&nums , vector<int>&path , vector<vector<int>>&result){
 
+        if(idx == nums.size()){
+            result.push_back(path);
+            return;
+        }
+
+        // Include it 
+        path.push_back(nums[idx]);
+        solve(idx+1 , nums , path , result);
+        path.pop_back();
+
+        //Exclude it 
+        solve(idx+1 , nums , path , result);
+    }
+    vector<vector<int>> subsets(vector<int>& nums) {
+        
+        vector<vector<int>>result;
+        vector<int>path;
+
+        solve(0, nums , path , result);
+
+        return result;
+    }
 };
