@@ -1,6 +1,8 @@
 class Solution {
 public:
     void sortColors(vector<int>& nums) {
+        // Hellman Dutch Algorithm
+
         int low = 0;
         int mid = 0;
         int high = nums.size()-1;
@@ -14,7 +16,7 @@ public:
             }else if(nums[mid] == 1){
                 mid++;
             }else{
-                swap(nums[mid], nums[high]);
+                swap(nums[high], nums[mid]);
                 high--;
             }
         }
