@@ -1,10 +1,10 @@
 class Solution {
 public:
     vector<vector<int>> threeSum(vector<int>& nums) {
-
-        vector<vector<int>>ans;
         
-        // Sort the array to handle duplicates 
+        vector<vector<int>>ans;
+
+        int n = nums.size();
         sort(nums.begin(), nums.end());
 
         for(int i=0; i<nums.size(); i++){
@@ -18,12 +18,11 @@ public:
 
             while(left < right){
 
-                long long sum = (long long )nums[i] + nums[left] +nums[right];
-
-                if(sum > 0){
-                    right--;
-                }else if(sum < 0){
+                long long sum = (long long) nums[i] + nums[left] + nums[right];
+                if(sum < 0){
                     left++;
+                }else if(sum > 0){
+                    right--;
                 }else{
 
                     ans.push_back({nums[i], nums[left], nums[right]});
@@ -41,7 +40,6 @@ public:
                 }
             }
         }
-
         return ans;
     }
 };
