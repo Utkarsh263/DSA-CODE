@@ -6,19 +6,20 @@ public:
     }
     
     void push(int x) {
+        
         q.push(x);
-        int sz = q.size();
+        int n = q.size();
 
-        for(int i=0; i<sz-1; i++){
+        for(int i=0; i<n-1; i++){
             q.push(q.front());
             q.pop();
         }
     }
     
     int pop() {
-        int topElement = q.front();
+        int val = q.front();
         q.pop();
-        return topElement;
+        return val;
     }
     
     int top() {
