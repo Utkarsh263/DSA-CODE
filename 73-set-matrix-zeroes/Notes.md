@@ -1,1 +1,1 @@
-<h2>set-matrix-zeroes Notes</h2><hr>[ Time taken: 3d 13hrs 41m 22s ]
+<h2>set-matrix-zeroes Notes</h2><hr>[ Time taken: 2hrs 7m 31s ]
