@@ -5,7 +5,6 @@ public:
         int m = matrix.size();
         int n = matrix[0].size();
 
-        // Using extra space 
         vector<int>row(m,0);
         vector<int>col(n,0);
 
@@ -18,7 +17,6 @@ public:
             }
         }
 
-        // Setting matrix zeroes 
         for(int i=0; i<m; i++){
             for(int j=0; j<n; j++){
                 if(row[i] == 1 || col[j] == 1){
