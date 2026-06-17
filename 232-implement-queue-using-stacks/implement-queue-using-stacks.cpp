@@ -14,7 +14,6 @@ public:
 
         s1.push(x);
 
-
         while(!s2.empty()){
             s1.push(s2.top());
             s2.pop();
@@ -22,9 +21,9 @@ public:
     }
     
     int pop() {
-        int topElement = s1.top();
+        int val = s1.top();
         s1.pop();
-        return topElement;
+        return val;
     }
     
     int peek() {
