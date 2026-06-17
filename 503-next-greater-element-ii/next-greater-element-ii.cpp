@@ -2,18 +2,19 @@ class Solution {
 public:
     vector<int> nextGreaterElements(vector<int>& nums) {
         
-        // Here we will traverse the array twice but we will fill the answwr during the second pass from n-1 to 0
-        int n = nums.size();
-        vector<int>ans(n);
-        stack<int>st;
+        // Here we will traverse the array twice and start filling answers during teh second pass 
 
-        for(int i= 2*n-1; i>=0; i--){
+        int n = nums.size();
+        stack<int>st;
+        vector<int>ans(n);
+
+        for(int i=2*n-1; i>=0; i--){
 
             while(!st.empty() && st.top() <= nums[i%n]){
                 st.pop();
             }
 
-            // Filling up answers 
+            // Fill the answers in second pass 
             if(i<n){
                 if(st.empty()){
                     ans[i] = -1;
@@ -26,6 +27,5 @@ public:
         }
 
         return ans;
-
     }
 };
