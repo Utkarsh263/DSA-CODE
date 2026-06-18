@@ -1,36 +1,69 @@
 class Solution {
 public:
     int trap(vector<int>& height) {
-        
-        // Using extra space O(n)
-        stack<int>st;
+
+        int left = 0;
+        int right = height.size() - 1;
+
+        int leftMax = 0;
+        int rightMax = 0;
+
         int water = 0;
-        int n = height.size();
 
-        for(int i=0; i<n; i++){
+        while(left < right) {
 
-            while(!st.empty() && height[st.top()] <= height[i]){
+            leftMax = max(leftMax, height[left]);
+            rightMax = max(rightMax, height[right]);
 
-                int bottom = st.top();
-                st.pop();
+            if(leftMax < rightMax) {
 
-                if(st.empty()){
-                    break;
-                }
-
-                // Left Boundary 
-                int left = st.top();
-
-                int width = i-left-1;
-
-                int heightBounded = min(height[left], height[i]) - height[bottom];
-
-                water += heightBounded*width;
+                water += leftMax - height[left];
+                left++;
             }
+            else {
 
-            st.push(i);
+                water += rightMax - height[right];
+                right--;
+            }
         }
 
         return water;
     }
 };
+
+
+// class Solution {
+// public:
+//     int trap(vector<int>& height) {
+        
+//         stack<int>st;
+//         int water = 0;
+//         int n = height.size();
+
+//         for(int i=0; i<n; i++){
+
+//             while(!st.empty() && height[st.top()] <= height[i]){
+
+//                 int bottom = st.top();
+
+//                 st.pop();
+
+//                 // No left boundary exist 
+//                 if(st.empty()){
+//                     break;
+//                 }
+//                 int left = st.top();
+                
+//                 int width = i-left-1;
+
+//                 int heightBounded = min(height[left], height[i])-height[bottom];
+
+//                 water += width * heightBounded;
+//             }
+
+//             st.push(i);
+//         }
+
+//         return water;
+//     }
+// };
