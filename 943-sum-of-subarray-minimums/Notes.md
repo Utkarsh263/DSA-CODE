@@ -1,1 +1,1 @@
-<h2>sum-of-subarray-minimums Notes</h2><hr>[ Time taken: 1 hr 33 m 51 s ]
+<h2>sum-of-subarray-minimums Notes</h2><hr>[ Time taken: 20hrs 4m 28s ]
