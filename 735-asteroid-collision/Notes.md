@@ -1,1 +1,1 @@
-<h2>asteroid-collision Notes</h2><hr>[ Time taken: 4d 14hrs 54m 21s ]
+<h2>asteroid-collision Notes</h2><hr>[ Time taken: 20hrs 6m 59s ]
