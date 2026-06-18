@@ -7,8 +7,8 @@ public:
         for(int a : asteroids){
 
             bool destroyed = false;
+
             while(!st.empty() && st.top() > 0 && a < 0){
-                
                 if(abs(a) > abs(st.top())){
                     st.pop();
                 }else if(abs(a) == abs(st.top())){
@@ -19,6 +19,7 @@ public:
                     destroyed = true;
                     break;
                 }
+
             }
 
             if(!destroyed){
@@ -28,7 +29,7 @@ public:
 
         vector<int>ans(st.size());
 
-        for(int i= st.size()-1; i>=0; i--){
+        for(int i=st.size()-1; i>=0; i--){
             ans[i] = st.top();
             st.pop();
         }
