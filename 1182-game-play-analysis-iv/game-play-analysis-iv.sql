@@ -1,3 +1,4 @@
+# Write your MySQL query statement below
 SELECT 
 ROUND(
     COUNT(DISTINCT a1.player_id) /
