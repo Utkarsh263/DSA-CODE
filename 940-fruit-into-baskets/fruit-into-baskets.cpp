@@ -1,25 +1,30 @@
 class Solution {
 public:
     int totalFruit(vector<int>& fruits) {
-        unordered_map<int, int>freq;  // To store count of each fruit type 
-        int left =0;
-        int maxLen =0;
+        
+        // We will use hashmap for this 
+        unordered_map<int, int>mp;
+        int left = 0;
+        int n = fruits.size();
+        int ans = 0;
 
-        for(int right =0; right<fruits.size(); right++){
-            freq[fruits[right]]++;
+        for(int right = 0; right<n; right++){
+            mp[fruits[right]]++;
 
-            while(freq.size() > 2){
-                freq[fruits[left]]--;
-                if(freq[fruits[left]]==0){
-                    freq.erase(fruits[left]);
+            while(mp.size() > 2){
+
+                mp[fruits[left]]--;
+
+                if(mp[fruits[left]] == 0){
+                    mp.erase(fruits[left]);
                 }
 
                 left++;
             }
 
-            maxLen = max(maxLen , right-left+1);
+            ans = max(ans , right-left+1);
         }
 
-        return maxLen;
+        return ans;
     }
 };
