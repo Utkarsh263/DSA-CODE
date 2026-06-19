@@ -2,13 +2,14 @@ class Solution {
 public:
     int totalFruit(vector<int>& fruits) {
         
-        // We will use hashmap for this 
-        unordered_map<int, int>mp;
-        int left = 0;
         int n = fruits.size();
-        int ans = 0;
+        int res = 0;
+        int left = 0;
+        // Hashmap for storing the values 
+        unordered_map<int, int>mp;
 
-        for(int right = 0; right<n; right++){
+        for(int right = 0; right < n; right++){
+
             mp[fruits[right]]++;
 
             while(mp.size() > 2){
@@ -22,9 +23,9 @@ public:
                 left++;
             }
 
-            ans = max(ans , right-left+1);
+            res = max(res , right-left+1);
         }
 
-        return ans;
+        return res;
     }
 };
