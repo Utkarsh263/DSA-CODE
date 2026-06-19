@@ -1,1 +1,1 @@
-<h2>number-of-substrings-containing-all-three-characters Notes</h2><hr>[ Time taken: 21hrs 1m 32s ]
+<h2>number-of-substrings-containing-all-three-characters Notes</h2><hr>[ Time taken: 20hrs 34m 54s ]
