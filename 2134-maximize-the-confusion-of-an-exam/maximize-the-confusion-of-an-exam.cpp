@@ -3,10 +3,11 @@ public:
     int solve(string &s , int k , char badChar){
 
         int left = 0;
-        int badCount = 0;
         int ans = 0;
+        int n = s.size();
+        int badCount = 0;
 
-        for(int right = 0; right < s.size(); right++){
+        for(int right = 0; right < n; right++){
 
             if(s[right] == badChar){
                 badCount++;
@@ -17,7 +18,6 @@ public:
                 if(s[left] == badChar){
                     badCount--;
                 }
-
                 left++;
             }
 
@@ -29,8 +29,8 @@ public:
     int maxConsecutiveAnswers(string answerKey, int k) {
         
         return max(
-            solve(answerKey , k , 'T'),
-            solve(answerKey , k , 'F')
+            solve(answerKey , k, 'T'),
+            solve(answerKey , k, 'F')
         );
     }
 };
