@@ -2,29 +2,24 @@ class Solution {
 public:
     int numberOfSubstrings(string s) {
         
-        // Array to store count of each character
-        vector<int>count(3,0);
-        int left =0;
-        int ans =0;
         int n = s.size();
+        vector<int>freq(3, 0);
 
-        for(int right =0; right < n ; right++){
+        int left = 0;
+        int ans = 0;
 
-            // Increment the count of each character 
-            count[s[right]-'a']++;
+        for(int right = 0; right <n; right++){
 
-            //Make window valid 
-            while(count[0] > 0 && count[1] > 0 && count[2] > 0){
+            freq[s[right]-'a']++;
+
+            while(freq[0] > 0 && freq[1]>0 && freq[2] > 0){
 
                 ans += (n-right);
 
-                // start shrinking the window 
-                count[s[left]-'a']--;
-                left++;
+                freq[s[left++]-'a']--;
             }
         }
 
         return ans;
-
     }
 };
