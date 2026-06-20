@@ -1,13 +1,15 @@
 class Solution {
 public:
+    int atMost(vector<int>&nums , int k){
 
-    int atMost(vector<int>& nums, int k){
+        // Use sliding window approach 
 
-        unordered_map<int,int> mp;
         int left = 0;
         int count = 0;
+        unordered_map<int , int>mp;
+        int n = nums.size();
 
-        for(int right = 0; right < nums.size(); right++){
+        for(int right = 0; right < n; right++){
 
             mp[nums[right]]++;
 
@@ -15,19 +17,20 @@ public:
 
                 mp[nums[left]]--;
 
-                if(mp[nums[left]] == 0)
+                if(mp[nums[left]] == 0){
                     mp.erase(nums[left]);
+                }
 
                 left++;
             }
 
-            count += (right - left + 1);
+            count += (right-left+1);
         }
 
         return count;
     }
-
     int subarraysWithKDistinct(vector<int>& nums, int k) {
-        return atMost(nums, k) - atMost(nums, k - 1);
+        
+        return atMost(nums, k) - atMost(nums, k-1);
     }
 };
