@@ -10,19 +10,18 @@ public:
         }
 
         int windowSize = n-k;
-
-        // Finding window sum 
         int sum = 0;
+
         for(int i=0; i<windowSize; i++){
             sum += cardPoints[i];
         }
 
         int minSum = sum;
 
-        for(int i= windowSize ; i<n; i++){
+        for(int i= windowSize; i<n; i++){
 
-            sum = sum + cardPoints[i] - cardPoints[i-windowSize];
-            minSum = min(sum , minSum);
+            sum += cardPoints[i] - cardPoints[i-windowSize];
+            minSum = min(minSum , sum);
         }
 
         return total-minSum;
