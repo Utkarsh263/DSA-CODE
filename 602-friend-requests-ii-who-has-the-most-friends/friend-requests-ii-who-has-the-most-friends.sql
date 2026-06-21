@@ -1,10 +1,17 @@
 # Write your MySQL query statement below
-Select id , count(*) as num
-from(
-    Select requester_id as id from requestaccepted
-    union all
-    Select accepter_id as id from requestaccepted
-)as all_friends
-group by id
-order by num desc
-limit 1;
+SELECT id, COUNT(*) AS num
+FROM(
+
+    SELECT requester_id AS id 
+    FROM RequestAccepted
+
+    UNION ALL 
+
+    SELECT accepter_id AS id
+    FROM RequestAccepted
+)t
+
+GROUP BY id
+ORDER BY num DESC
+limit 1
+
