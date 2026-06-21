@@ -5,12 +5,12 @@ public:
         int low = 0;
         int high = 0;
 
-        for(char c : s){
+        for(char ch : s){
 
-            if(c == '('){
+            if(ch == '('){
                 low++;
                 high++;
-            }else if(c == ')'){
+            }else if(ch == ')'){
                 low--;
                 high--;
             }else{
@@ -22,11 +22,10 @@ public:
                 return false;
             }
 
-            if(low < 0){
-                low = 0;
-            }
+            low = max(low, 0);
         }
 
         return low == 0;
+
     }
 };
