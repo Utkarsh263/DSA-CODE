@@ -1,7 +1,8 @@
 class Solution {
 public:
     int findContentChildren(vector<int>& g, vector<int>& s) {
-        // Sort the cookies and greed factor so that greedier children get bigger cokkie in size
+        
+        // Sort the cookies and the greed factor so that the greedier children get the cookies that are bigger in size 
 
         sort(g.begin(), g.end());
         sort(s.begin(), s.end());
@@ -9,12 +10,15 @@ public:
         int m = g.size();
         int n = s.size();
 
-        int i =0 , j =0;
+        int i=0;
+        int j = 0;
 
         while(i<m && j<n){
+
             if(s[j] >= g[i]){
                 i++;
             }
+
             j++;
         }
 
