@@ -1,21 +1,15 @@
 # Write your MySQL query statement below
-WITH cte AS
-(
-    SELECT *,
-           id - ROW_NUMBER() OVER(ORDER BY id) AS grp
+WITH cte as (
+    SELECT * , id - ROW_NUMBER() over (order by id) as 'grp'
     FROM Stadium
-    WHERE people >= 100
+    where people >= 100
 )
 
-SELECT id,
-       visit_date,
-       people
+SELECT id , visit_date , people
 FROM cte
-WHERE grp IN
-(
-    SELECT grp
-    FROM cte
-    GROUP BY grp
-    HAVING COUNT(*) >= 3
+where grp in (
+    SELECT grp from cte
+    group by grp 
+    having count(*) >= 3
 )
-ORDER BY visit_date;
+order by visit_date;
