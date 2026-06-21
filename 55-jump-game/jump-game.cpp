@@ -6,7 +6,7 @@ public:
 
         for(int i=0; i<nums.size(); i++){
 
-            if(i>maxIndex){
+            if(i > maxIndex ){
                 return false;
             }
 
