@@ -1,1 +1,1 @@
-<h2>binary-tree-preorder-traversal Notes</h2><hr>[ Time taken: 7d 2hrs 58m 16s ]
+<h2>binary-tree-preorder-traversal Notes</h2><hr>[ Time taken: 22hrs 10m 47s ]
