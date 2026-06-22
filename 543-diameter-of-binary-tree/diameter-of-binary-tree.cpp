@@ -11,31 +11,56 @@
  */
 class Solution {
 public:
+    int diameter = 0;
     int height(TreeNode* root){
 
-        if(root== NULL){
+        if(root == NULL){
             return 0;
         }
 
         int left = height(root->left);
         int right = height(root->right);
 
-        return 1+max(left , right);
+        diameter = max(diameter , left+right);
+
+        return 1+ max(left, right);
     }
     int diameterOfBinaryTree(TreeNode* root) {
-
-        int diam = 0;
-
-        if(root == NULL){
-            return 0;
-        }
-
-        int leftDiam = diameterOfBinaryTree(root->left);
-        int rightDiam = diameterOfBinaryTree(root->right);
-        int currDiam = height(root->left) + height(root->right);
-
-        diam = max({leftDiam , rightDiam , currDiam});
-
-        return diam;
+        
+        height(root);
+        return diameter;
     }
 };
+
+// Naive Approach 
+
+// class Solution {
+// public:
+//     int height(TreeNode* root){
+
+//         if(root == NULL){
+//             return 0;
+//         }
+
+//         int left = height(root->left);
+//         int right = height(root->right);
+
+//         return 1+max(left , right);
+//     }
+//     int diameterOfBinaryTree(TreeNode* root) {
+        
+//         if(root == NULL){
+//             return 0;
+//         }
+
+//         int diam = 0;
+
+//         int leftDiam = diameterOfBinaryTree(root->left);
+//         int rightDiam = diameterOfBinaryTree(root->right);
+//         int currDiam = height(root->left) + height(root->right);
+
+//         diam = max({currDiam , leftDiam , rightDiam});
+
+//         return diam;
+//     }
+// };
