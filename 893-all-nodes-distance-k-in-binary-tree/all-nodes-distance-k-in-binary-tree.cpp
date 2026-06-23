@@ -7,74 +7,151 @@
  *     TreeNode(int x) : val(x), left(NULL), right(NULL) {}
  * };
  */
+// class Solution {
+// public:
+
+//     void markParents(TreeNode* root,
+//                      unordered_map<TreeNode*, TreeNode*>& parent) {
+
+//         queue<TreeNode*> q;
+//         q.push(root);
+
+//         while(!q.empty()) {
+
+//             TreeNode* node = q.front();
+//             q.pop();
+
+//             if(node->left) {
+//                 parent[node->left] = node;
+//                 q.push(node->left);
+//             }
+
+//             if(node->right) {
+//                 parent[node->right] = node;
+//                 q.push(node->right);
+//             }
+//         }
+//     }
+
+//     vector<int> distanceK(TreeNode* root,
+//                           TreeNode* target,
+//                           int k) {
+
+//         unordered_map<TreeNode*, TreeNode*> parent;
+//         markParents(root, parent);
+
+//         unordered_map<TreeNode*, bool> vis;
+
+//         queue<TreeNode*> q;
+//         q.push(target);
+//         vis[target] = true;
+
+//         int currDist = 0;
+
+//         while(!q.empty()) {
+
+//             int size = q.size();
+
+//             if(currDist == k)
+//                 break;
+
+//             currDist++;
+
+//             for(int i = 0; i < size; i++) {
+
+//                 TreeNode* node = q.front();
+//                 q.pop();
+
+//                 if(node->left && !vis[node->left]) {
+//                     vis[node->left] = true;
+//                     q.push(node->left);
+//                 }
+
+//                 if(node->right && !vis[node->right]) {
+//                     vis[node->right] = true;
+//                     q.push(node->right);
+//                 }
+
+//                 if(parent.count(node) && !vis[parent[node]]) {
+//                     vis[parent[node]] = true;
+//                     q.push(parent[node]);
+//                 }
+//             }
+//         }
+
+//         vector<int> ans;
+
+//         while(!q.empty()) {
+//             ans.push_back(q.front()->val);
+//             q.pop();
+//         }
+
+//         return ans;
+//     }
+// };
+
 class Solution {
 public:
 
-    void markParents(TreeNode* root,
-                     unordered_map<TreeNode*, TreeNode*>& parent) {
+    unordered_map<TreeNode*, vector<TreeNode*>> adj;
 
-        queue<TreeNode*> q;
-        q.push(root);
+    void buildGraph(TreeNode* root) {
 
-        while(!q.empty()) {
+        if(root == NULL) {
+            return;
+        }
 
-            TreeNode* node = q.front();
-            q.pop();
+        if(root->left) {
 
-            if(node->left) {
-                parent[node->left] = node;
-                q.push(node->left);
-            }
+            adj[root].push_back(root->left);
+            adj[root->left].push_back(root);
 
-            if(node->right) {
-                parent[node->right] = node;
-                q.push(node->right);
-            }
+            buildGraph(root->left);
+        }
+
+        if(root->right) {
+
+            adj[root].push_back(root->right);
+            adj[root->right].push_back(root);
+
+            buildGraph(root->right);
         }
     }
 
-    vector<int> distanceK(TreeNode* root,
-                          TreeNode* target,
-                          int k) {
+    vector<int> distanceK(TreeNode* root, TreeNode* target, int k) {
 
-        unordered_map<TreeNode*, TreeNode*> parent;
-        markParents(root, parent);
-
-        unordered_map<TreeNode*, bool> vis;
+        buildGraph(root);
 
         queue<TreeNode*> q;
+        unordered_map<TreeNode*, bool> vis;
+
         q.push(target);
         vis[target] = true;
 
-        int currDist = 0;
+        int dist = 0;
 
         while(!q.empty()) {
 
             int size = q.size();
 
-            if(currDist == k)
+            if(dist == k) {
                 break;
+            }
 
-            currDist++;
+            dist++;
 
             for(int i = 0; i < size; i++) {
 
                 TreeNode* node = q.front();
                 q.pop();
 
-                if(node->left && !vis[node->left]) {
-                    vis[node->left] = true;
-                    q.push(node->left);
-                }
+                for(auto neighbour : adj[node]) {
 
-                if(node->right && !vis[node->right]) {
-                    vis[node->right] = true;
-                    q.push(node->right);
-                }
+                    if(!vis[neighbour]) {
 
-                if(parent.count(node) && !vis[parent[node]]) {
-                    vis[parent[node]] = true;
-                    q.push(parent[node]);
+                        vis[neighbour] = true;
+                        q.push(neighbour);
+                    }
                 }
             }
         }
@@ -82,6 +159,7 @@ public:
         vector<int> ans;
 
         while(!q.empty()) {
+
             ans.push_back(q.front()->val);
             q.pop();
         }
