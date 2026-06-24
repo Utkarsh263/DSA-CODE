@@ -2,70 +2,76 @@ class Solution {
 public:
     int orangesRotting(vector<vector<int>>& grid) {
         
-        int n = grid.size();
-        int m = grid[0].size();
+        int m = grid.size(); 
+        int n = grid[0].size();
 
-        // Visited matrix 
-        vector<vector<int>>vis(n, vector<int>(m, 0));
+        // Make Visited Matrix 
+        vector<vector<int>> visited(m, vector<int>(n, 0));
 
-        //Queue for BFS Traversal 
-        queue<pair<pair<int, int>, int>>q;  //{(row, col), time}
+        // Use multi source bfs traversal 
+        queue<pair<pair<int, int>,int>>q;  // {(row, col), time}
 
         int fresh = 0;
 
-        for(int i=0; i<n; i++){
-            for(int j=0; j<m; j++){
-                if(grid[i][j] == 2){  // Rotten Orange
+        for(int i=0; i<m; i++){
+            for(int j=0; j<n; j++){
+                if(!visited[i][j] && grid[i][j] == 2){
+                    visited[i][j] = 1;
                     q.push({{i, j}, 0});
-                    vis[i][j] == 1;
                 }else if(grid[i][j] == 1){
                     fresh++;
                 }
             }
         }
 
+        // Traverse the Graph 
         int time = 0;
+        int ans = 0;
 
         while(!q.empty()){
 
-            int r = q.front().first.first;
+            int r= q.front().first.first;
             int c = q.front().first.second;
-            int t = q.front().second;
+            time = q.front().second;
 
             q.pop();
-            time = max(time, t);
-            // Explore  directions
 
-            if(r-1 >= 0 && !vis[r-1][c] && grid[r-1][c] == 1){
-                q.push({{r-1, c} , t+1});
-                vis[r-1][c] = 1;
+            ans = max(ans , time);
+
+            // Explore all 4 directions 
+
+            // Up direction 
+            if(r-1 >= 0 && !visited[r-1][c] && grid[r-1][c] == 1){
+                q.push({{r-1, c}, time+1});
+                visited[r-1][c] = 1;
                 fresh--;
             }
 
-            if(r+1 < n && grid[r+1][c] == 1 && vis[r+1][c] == 0) {
-                q.push({{r+1, c}, t+1});
-                vis[r+1][c] = 1;
+            // Down direction 
+
+            if(r+1 < m && !visited[r+1][c] && grid[r+1][c] == 1){
+                q.push({{r+1, c}, time+1});
+                visited[r+1][c] = 1;
                 fresh--;
             }
 
-            // LEFT
-            if(c-1 >= 0 && grid[r][c-1] == 1 && vis[r][c-1] == 0) {
-                q.push({{r, c-1}, t+1});
-                vis[r][c-1] = 1;
+            // Left direction
+
+            if(c-1 >= 0 && !visited[r][c-1] && grid[r][c-1] == 1){
+                q.push({{r, c-1}, time+1});
+                visited[r][c-1] = 1;
                 fresh--;
             }
 
-            // RIGHT
-            if(c+1 < m && grid[r][c+1] == 1 && vis[r][c+1] == 0) {
-                q.push({{r, c+1}, t+1});
-                vis[r][c+1] = 1;
+            // Right direction 
+            if(c+1 < n && !visited[r][c+1] && grid[r][c+1]==1){
+                q.push({{r, c+1}, time+1});
+                visited[r][c+1] = 1;
                 fresh--;
             }
-
-
         }
 
-        if(fresh > 0){
+        if(fresh > 0){ // If any fresh orange left , its impossible to rot all oranges  
             return -1;
         }
 
