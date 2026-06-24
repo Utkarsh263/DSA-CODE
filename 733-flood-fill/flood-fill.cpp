@@ -1,32 +1,28 @@
 class Solution {
 public:
-    void dfs(vector<vector<int>>&image , int r, int c, int original , int newColor){
-        
-        int rows = image.size();
-        int cols = image[0].size();
+    int m;
+    int n;
+    void dfs(vector<vector<int>>&image , int i, int j, int newColor , int orgColor){
 
-        // Boundary Check 
-        if(r<0 || c<0 || r>=rows || c>=cols || image[r][c] != original){
+        if(i<0 || i>= m || j<0 || j>= n || image[i][j] != orgColor || image[i][j] == newColor){
             return;
         }
 
-        image[r][c] = newColor;
+        image[i][j] = newColor;
 
-        // Explore further 4 directions
-        dfs(image, r+1 , c, original , newColor);
-        dfs(image , r-1 , c, original, newColor);
-        dfs(image , r, c+1, original , newColor);
-        dfs(image , r, c-1 , original , newColor);
+        dfs(image , i-1, j, newColor , orgColor);
+        dfs(image , i+1, j, newColor , orgColor);
+        dfs(image , i, j-1, newColor , orgColor);
+        dfs(image , i, j+1, newColor , orgColor);
     }
-    vector<vector<int>> floodFill(vector<vector<int>>& image, int sr, int sc, int newColor) {
+    vector<vector<int>> floodFill(vector<vector<int>>& image, int sr, int sc, int color) {
+
+        m = image.size();
+        n = image[0].size();
         
-        int original = image[sr][sc];
+        int orgColor = image[sr][sc];
+        dfs(image, sr, sc , color , orgColor);
 
-        if(original == newColor){
-            return image;
-        }
-
-        dfs(image , sr, sc , original , newColor);
         return image;
     }
 };
