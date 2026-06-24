@@ -29,6 +29,6 @@ public:
     }
     bool isValidBST(TreeNode* root) {
         
-        return checkBST(root, NULL , NULL);
+        return checkBST(root , NULL ,NULL);
     }
 };
