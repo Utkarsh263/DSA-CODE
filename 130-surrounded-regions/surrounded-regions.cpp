@@ -1,54 +1,54 @@
 class Solution {
 public:
-    int m , n;
+    void dfs(int r, int c ,vector<vector<int>>&visited, vector<vector<char>>&board){
 
-    void dfs(int i, int j, vector<vector<char>>& board) {
-        // base condition
-        if(i < 0 || j < 0 || i >= n || j >= m || board[i][j] != 'O')
-            return;
+        visited[r][c] = 1;
 
-        // mark as safe
-        board[i][j] = 'T';
+        int m = board.size();
+        int n = board[0].size();
 
-        // explore 4 directions
-        dfs(i + 1, j, board);
-        dfs(i - 1, j, board);
-        dfs(i, j + 1, board);
-        dfs(i, j - 1, board);
+        // Run dfs to neighbours 
+        if(r-1>=0 && !visited[r-1][c] && board[r-1][c] == 'O'){
+            dfs(r-1, c, visited , board);
+        }
+
+        if(r+1 < m && !visited[r+1][c] && board[r+1][c] == 'O'){
+            dfs(r+1, c, visited , board);
+        }
+
+        if(c-1 >= 0 && !visited[r][c-1] && board[r][c-1] == 'O'){
+            dfs(r, c-1 , visited , board);
+        }
+
+        if(c+1 < n && !visited[r][c+1] && board[r][c+1] == 'O'){
+            dfs(r, c+1 , visited , board);
+        }
     }
-    
     void solve(vector<vector<char>>& board) {
         
-        n = board.size();
-        m = board[0].size();
+        int m = board.size();
+        int n = board[0].size();
 
-        // Traverse the row boundary 
-        for(int j=0; j<m; j++){
-            if(board[0][j] == 'O'){
-                dfs(0, j, board);
-            }
-            if(board[n-1][j] == 'O'){
-                dfs(n-1 , j, board);
+        vector<vector<int>>visited(m, vector<int>(n ,0));
+
+        for(int i=0; i<m; i++){
+            for(int j=0; j<n; j++){
+
+                if(i==0 || i== m-1 || j==0 || j==n-1){
+                    
+                    if(board[i][j] == 'O' && !visited[i][j]){
+                        dfs(i, j, visited , board);
+                    }
+                }
             }
         }
 
-        // Traverse the column boundary 
-        for(int i=0; i<n; i++){
-            if(board[i][0] == 'O'){
-                dfs(i, 0, board);
-            }
-            if(board[i][m-1] == 'O'){
-                dfs(i , m-1, board);
-            }
-        }
+        // Mark remainig unvisted O as X 
 
-        // Flip surrounded + restore safe 
-        for(int i=0; i<n; i++){
-            for(int j=0; j<m; j++){
-                if(board[i][j] == 'O'){
+        for(int i=0; i<m; i++){
+            for(int j=0; j<n; j++){
+                if(board[i][j] == 'O' && !visited[i][j]){
                     board[i][j] = 'X';
-                }else if(board[i][j] == 'T'){
-                    board[i][j] = 'O';
                 }
             }
         }
