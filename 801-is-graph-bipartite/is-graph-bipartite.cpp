@@ -1,32 +1,33 @@
 class Solution {
 public:
+    bool dfs(int node , int color , vector<vector<int>>&graph , vector<int>&colors){
+
+        colors[node] = color;
+
+        for(int neighbour : graph[node]){
+            if(colors[neighbour] == -1){ 
+                if(!dfs(neighbour ,1- color, graph , colors)){
+                    return false;
+                }
+            }else if(colors[neighbour] == color){
+                return false;
+            }
+        }
+
+        return true;
+    }
     bool isBipartite(vector<vector<int>>& graph) {
         
         int n = graph.size();
-        vector<int>color(n , -1);
+        vector<int>colors(n , -1);
 
+        // Traverse the grph dfs 
         for(int i=0; i<n; i++){
 
-            if(color[i] != -1){
-                continue;
-            }
-
-            queue<int>q;
-            q.push(i);
-            color[i] = 0;
-
-            while(!q.empty()){
-
-                int node = q.front();
-                q.pop();
-
-                for(auto it : graph[node]){
-                    if(color[it] == -1){
-                        color[it] = 1-color[node];
-                        q.push(it);
-                    }else if(color[it] ==  color[node]){
-                        return false;
-                    }
+            if(colors[i] == -1){ // Call for dfs for the uncolored node and start coloring 
+                
+                if(!dfs(i, 0, graph , colors)){
+                    return false;
                 }
             }
         }
