@@ -1,39 +1,54 @@
 class Solution {
 public:
-    bool isCycleDFS(int src , vector<bool>&vis , vector<bool>&recPath , vector<vector<int>>&edges){
 
-        vis[src] = true;
-        recPath[src] = true;
+    bool dfs(int node, vector<vector<int>>& adj,
+             vector<int>& vis, vector<int>& pathVis) {
 
-        for(int i=0; i<edges.size(); i++){
+        vis[node] = 1;
+        pathVis[node] = 1;
 
-            int v = edges[i][0];
-            int u = edges[i][1];
+        for (int neighbour : adj[node]) {
 
-            if( u == src){
-                if(!vis[v]){
-                    if(isCycleDFS(v,vis,recPath,edges)){
-                        return true;
-                    }
-                }else if(recPath[v]){
+            if (!vis[neighbour]) {
+
+                if (dfs(neighbour, adj, vis, pathVis))
                     return true;
-                }
+
+            }
+            else if (pathVis[neighbour]) {
+                return true;
             }
         }
 
-        recPath[src] = false;
+        // Backtracking
+        pathVis[node] = 0;
+
         return false;
     }
-    bool canFinish(int n, vector<vector<int>>& edges) {
-        
-        vector<bool>vis(n , false);
-        vector<bool>recPath(n , false);
 
-        for(int i=0; i<n; i++){
-            if(!vis[i]){
-                if(isCycleDFS(i, vis , recPath , edges)){
+    bool canFinish(int numCourses, vector<vector<int>>& prerequisites) {
+
+        // Create adjacency list
+        vector<vector<int>> adj(numCourses);
+
+        for (auto &it : prerequisites) {
+
+            int course = it[0];
+            int prereq = it[1];
+
+            adj[prereq].push_back(course);
+        }
+
+        vector<int> vis(numCourses, 0);
+        vector<int> pathVis(numCourses, 0);
+
+        // Handle disconnected graph
+        for (int i = 0; i < numCourses; i++) {
+
+            if (!vis[i]) {
+
+                if (dfs(i, adj, vis, pathVis))
                     return false;
-                }
             }
         }
 
